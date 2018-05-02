@@ -78,6 +78,9 @@ lib/_ctypes.lib
 lib/_ctypes_test.lib
 
 lib/cmake
+
+lib/cmark*.lib
+
 mkspecs
 
 lib64
@@ -123,6 +126,8 @@ include/jerror.h
 include/jmorecfg.h
 include/jpeglib.h
 include/pyopenvdb.h
+
+include/cmark*.h
 
 appleseed/bin/appleseed.cli.exe
 appleseed/bin/appleseed.dll

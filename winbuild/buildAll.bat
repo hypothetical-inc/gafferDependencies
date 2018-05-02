@@ -234,6 +234,14 @@ if %ERRORLEVEL% NEQ 0 (
 	exit /b %ERRORLEVEL%
 )
 echo ===============================================================================
+echo Building CMark...
+echo ===============================================================================
+call %ROOT_DIR%\winbuild\buildCMark.bat
+if %ERRORLEVEL% NEQ 0 (
+	echo "Error(s) building CMark"
+	exit /b %ERRORLEVEL%
+)
+echo ===============================================================================
 echo Building Resources...
 echo ===============================================================================
 call %ROOT_DIR%\winbuild\buildResources.bat
