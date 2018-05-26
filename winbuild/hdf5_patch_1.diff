@@ -5,17 +5,17 @@ Subject: [PATCH] change long_long tests to allow windows to build without
  popups
 
 ---
- hdf5-1.8.20/config/cmake/ConfigureChecks.cmake | 1176 ++++++++++++++++++++++++
- hdf5-1.8.20/config/cmake/HDF5Tests.c           |  491 ++++++++++
+ hdf5-1.8.20/config/cmake_ext_mod/ConfigureChecks.cmake | 1176 ++++++++++++++++++++++++
+ hdf5-1.8.20/config/cmake_ext_mod/HDF5Tests.c           |  491 ++++++++++
  2 files changed, 1667 insertions(+)
  create mode 100644 hdf5-1.8.20/config/cmake/ConfigureChecks.cmake
  create mode 100644 hdf5-1.8.20/config/cmake/HDF5Tests.c
 
-diff --git a/hdf5-1.8.20/config/cmake/ConfigureChecks.cmake b/hdf5-1.8.20/config/cmake/ConfigureChecks.cmake
+diff --git a/hdf5-1.8.20/config/cmake_ext_mod/ConfigureChecks.cmake b/hdf5-1.8.20/config/cmake_ext_mod/ConfigureChecks.cmake
 new file mode 100644
 index 0000000000..4227157a2a
 --- /dev/null
-+++ b/hdf5-1.8.20/config/cmake/ConfigureChecks.cmake
++++ b/hdf5-1.8.20/config/cmake_ext_mod/ConfigureChecks.cmake
 @@ -0,0 +1,1176 @@
 +#-----------------------------------------------------------------------------
 +# Include all the necessary files for macros
@@ -282,7 +282,7 @@ index 0000000000..4227157a2a
 +    #MESSAGE (STATUS "Performing ${OTHER_TEST}")
 +    TRY_COMPILE (${OTHER_TEST}
 +        ${CMAKE_BINARY_DIR}
-+        ${HDF5_RESOURCES_DIR}/HDF5Tests.c
++        ${HDF_RESOURCES_EXT_DIR}/HDF5Tests.c
 +        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${MACRO_CHECK_FUNCTION_DEFINITIONS}
 +        "${OTHER_TEST_ADD_LIBRARIES}"
 +        OUTPUT_VARIABLE OUTPUT
@@ -314,7 +314,7 @@ index 0000000000..4227157a2a
 +  IF ("H5_HAVE_TIME_GETTIMEOFDAY" MATCHES "^H5_HAVE_TIME_GETTIMEOFDAY$")
 +    TRY_COMPILE (HAVE_TIME_GETTIMEOFDAY
 +        ${CMAKE_BINARY_DIR}
-+        ${HDF5_RESOURCES_DIR}/GetTimeOfDayTest.cpp
++        ${HDF5_RESOURCES_EXT_DIR}/GetTimeOfDayTest.cpp
 +        COMPILE_DEFINITIONS -DTRY_TIME_H
 +        OUTPUT_VARIABLE OUTPUT
 +    )
@@ -327,7 +327,7 @@ index 0000000000..4227157a2a
 +  IF ("H5_HAVE_SYS_TIME_GETTIMEOFDAY" MATCHES "^H5_HAVE_SYS_TIME_GETTIMEOFDAY$")
 +    TRY_COMPILE (HAVE_SYS_TIME_GETTIMEOFDAY
 +        ${CMAKE_BINARY_DIR}
-+        ${HDF5_RESOURCES_DIR}/GetTimeOfDayTest.cpp
++        ${HDF5_RESOURCES_EXT_DIR}/GetTimeOfDayTest.cpp
 +        COMPILE_DEFINITIONS -DTRY_SYS_TIME_H
 +        OUTPUT_VARIABLE OUTPUT
 +    )
@@ -457,7 +457,7 @@ index 0000000000..4227157a2a
 +    SET (msg "Performing TEST_LFS_WORKS")
 +    TRY_RUN (TEST_LFS_WORKS_RUN   TEST_LFS_WORKS_COMPILE
 +        ${HDF5_BINARY_DIR}/CMake
-+        ${HDF5_RESOURCES_DIR}/HDF5Tests.c
++        ${HDF_RESOURCES_EXT_DIR}/HDF5Tests.c
 +        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=-DTEST_LFS_WORKS
 +        OUTPUT_VARIABLE OUTPUT
 +    )
@@ -744,7 +744,7 @@ index 0000000000..4227157a2a
 +    #MESSAGE (STATUS "Performing ${OTHER_TEST}")
 +    TRY_COMPILE (${OTHER_TEST}
 +        ${CMAKE_BINARY_DIR}
-+        ${HDF5_RESOURCES_DIR}/HDF5CXXTests.cpp
++        ${HDF_RESOURCES_EXT_DIR}/HDFCXXTests.cpp
 +        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${MACRO_CHECK_FUNCTION_DEFINITIONS}
 +        "${OTHER_TEST_ADD_LIBRARIES}"
 +        OUTPUT_VARIABLE OUTPUT
@@ -788,7 +788,7 @@ index 0000000000..4227157a2a
 +    SET (MACRO_CHECK_FUNCTION_DEFINITIONS "-DTEST_DIRECT_VFD_WORKS -D_GNU_SOURCE ${CMAKE_REQUIRED_FLAGS}")
 +    TRY_RUN (TEST_DIRECT_VFD_WORKS_RUN   TEST_DIRECT_VFD_WORKS_COMPILE
 +        ${HDF5_BINARY_DIR}/CMake
-+        ${HDF5_RESOURCES_DIR}/HDF5Tests.c
++        ${HDF_RESOURCES_EXT_DIR}/HDF5Tests.c
 +        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${MACRO_CHECK_FUNCTION_DEFINITIONS}
 +        OUTPUT_VARIABLE OUTPUT
 +    )
@@ -853,7 +853,7 @@ index 0000000000..4227157a2a
 +
 +    TRY_RUN(HAVE_IOEO_EXITCODE HAVE_IOEO_COMPILED
 +      ${CMAKE_BINARY_DIR}
-+      ${HDF5_RESOURCES_DIR}/HDF5Tests.c
++      ${HDF_RESOURCES_EXT_DIR}/HDF5Tests.c
 +      COMPILE_DEFINITIONS ${CMAKE_REQUIRED_DEFINITIONS}
 +      CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${MACRO_CHECK_FUNCTION_DEFINITIONS}
 +      -DCMAKE_SKIP_RPATH:BOOL=${CMAKE_SKIP_RPATH}
@@ -935,7 +935,7 @@ index 0000000000..4227157a2a
 +  endif (H5_SIZEOF_LONG_LONG)
 +  TRY_RUN (HDF5_PRINTF_LL_TEST_RUN   HDF5_PRINTF_LL_TEST_COMPILE
 +      ${HDF5_BINARY_DIR}/CMake
-+      ${HDF5_RESOURCES_DIR}/HDF5Tests.c
++      ${HDF_RESOURCES_EXT_DIR}/HDF5Tests.c
 +      CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=${CURRENT_TEST_DEFINITIONS}
 +      OUTPUT_VARIABLE OUTPUT
 +  )
@@ -986,7 +986,7 @@ index 0000000000..4227157a2a
 +   # MESSAGE (STATUS "===> ${TEST}")
 +    TRY_RUN (${TEST}_RUN   ${TEST}_COMPILE
 +        ${HDF5_BINARY_DIR}/CMake
-+        ${HDF5_RESOURCES_DIR}/ConversionTests.c
++        ${HDF_RESOURCES_DIR}/ConversionTests.c
 +        CMAKE_FLAGS -DCOMPILE_DEFINITIONS:STRING=-D${TEST}_TEST
 +        OUTPUT_VARIABLE OUTPUT
 +    )
@@ -1193,11 +1193,11 @@ index 0000000000..4227157a2a
 +IF (CYGWIN)
 +  SET (H5_CYGWIN_ULLONG_TO_LDOUBLE_ROUND_PROBLEM 1)
 +ENDIF (CYGWIN)
-diff --git a/hdf5-1.8.20/config/cmake/HDF5Tests.c b/hdf5-1.8.20/config/cmake/HDF5Tests.c
+diff --git a/hdf5-1.8.20/config/cmake_ext_mod/HDF5Tests.c b/hdf5-1.8.20/config/cmake_ext_mod/HDF5Tests.c
 new file mode 100644
 index 0000000000..b4523e4b60
 --- /dev/null
-+++ b/hdf5-1.8.20/config/cmake/HDF5Tests.c
++++ b/hdf5-1.8.20/config/cmake_ext_mod/HDF5Tests.c
 @@ -0,0 +1,491 @@
 +#define SIMPLE_TEST(x) int main(){ x; return 0; }
 +
