@@ -368,10 +368,10 @@ index 0000000000..e020273fc6
 +  execute_process (COMMAND date "+%a, %d %b %Y %H:%M:%S %z"
 +                   OUTPUT_VARIABLE _configure_date
 +                   OUTPUT_STRIP_TRAILING_WHITESPACE)
-+elseif (WIN32)
-+  execute_process (COMMAND cmd " /C date /T"
-+                   OUTPUT_VARIABLE _configure_date
-+                   OUTPUT_STRIP_TRAILING_WHITESPACE)
++#elseif (WIN32)
++#  execute_process (COMMAND cmd " /C date /T"
++#                   OUTPUT_VARIABLE _configure_date
++#                   OUTPUT_STRIP_TRAILING_WHITESPACE)
 +else ()
 +  set (_configure_date "Unknown")
 +endif()
