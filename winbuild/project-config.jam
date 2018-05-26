@@ -1,0 +1,6 @@
+import option ; 
+
+using msvc : 14.0 : "cl.exe"; 
+
+option.set keep-going : false ; 
+ 
