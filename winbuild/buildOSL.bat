@@ -30,7 +30,7 @@ mkdir %BUILD_DIR%\doc\licenses
 copy LICENSE %BUILD_DIR%\doc\licenses\osl
 
 rem We need to have the lib dir
-set PATH=%PATH%;%BUILD_DIR%\lib;%BUILD_DIR%\bin;%ROOT_DIR%\winbuild\FlexBison\bin;%ROOT_DIR%\OpenShadingLanguage-Release-%OSL_VERSION%\gafferBuild\src\liboslcomp\Release
+set PATH=%PATH%;%BUILD_DIR%\lib;%BUILD_DIR%\bin;%ROOT_DIR%\winbuild\FlexBison\bin;%ROOT_DIR%\OpenShadingLanguage-Release-%OSL_VERSION%\gafferBuild\src\liboslcomp;%ROOT_DIR%\OpenShadingLanguage-Release-%OSL_VERSION%\gafferBuild\src\liboslcomp\%BUILD_TYPE%
 
 mkdir gafferBuild
 cd gafferBuild
