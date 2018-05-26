@@ -9,7 +9,13 @@ rem Pyside will grab "version" from the environment if it exists and get
 rem confused with the --ignore-git flag, so unset VERSION temporarily
 set VERSION=
 
-python setup.py --ignore-git --qmake=%BUILD_DIR%\bin\qmake.exe --openssl=%BUILD_DIR%\lib --cmake="C:\Program Files\CMake\bin\cmake.exe" install
+if %CMAKE_GENERATOR%=="NMake Makefiles JOM" (
+    set CMAKE_PATH="C:\CMake\bin\cmake.exe"
+) else (
+    set CMAKE_PATH="C:\Program Files\CMake\bin\cmake.exe"
+)
+
+python setup.py --ignore-git --qmake=%BUILD_DIR%\bin\qmake.exe --openssl=%BUILD_DIR%\lib --cmake=%CMAKE_PATH% install
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 
 ENDLOCAL
