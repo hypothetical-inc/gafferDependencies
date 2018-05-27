@@ -18,6 +18,9 @@ bin/abcls.exe
 bin/abcstitcher.exe
 bin/abctree.exe
 
+bin/usd*
+bin/sdfdump
+
 bin/glew32.dll
 bin/hdf5*
 bin/jpeg*
@@ -81,6 +84,20 @@ lib/cmake
 
 lib/cmark*.lib
 
+lib/libtracelite*
+lib/libarch*
+lib/libtf*
+lib/libjs*
+lib/libwork*
+lib/libplug*
+lib/libkind*
+lib/libgf*
+lib/libvt*
+lib/libar*
+lib/libsdf*
+lib/libpcp*
+lib/libusd*
+
 mkspecs
 
 lib64
@@ -126,6 +143,7 @@ include/jerror.h
 include/jmorecfg.h
 include/jpeglib.h
 include/pyopenvdb.h
+include/pxr
 
 include/cmark*.h
 
@@ -138,3 +156,5 @@ appleseed/samples
 appleseed/schemas
 appleseed/settings
 appleseed/shaders
+
+share/usd
