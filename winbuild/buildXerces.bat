@@ -19,7 +19,7 @@ mkdir gafferBuild
 cd gafferBuild
 del /f CMakeCache.txt
 
-cmake -Wno-dev -G %CMAKE_GENERATOR% -CMAKE_BUILD_TYPE=%BUILD_TYPE% -DCMAKE_INSTALL_PREFIX=%BUILD_DIR% -DBUILD_SHARED_LIBS=OFF ..
+cmake -Wno-dev -G %CMAKE_GENERATOR% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -DCMAKE_INSTALL_PREFIX=%BUILD_DIR% -DBUILD_SHARED_LIBS=OFF ..
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 cmake --build . --config %BUILD_TYPE% --target install -- -j %NUMBER_OF_PROCESSORS%
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
