@@ -384,7 +384,7 @@ macro (add_copy_target_exe_to_sandbox_command target)
     add_custom_command (TARGET ${target} POST_BUILD
         COMMAND if not exist "${bin_path}" mkdir "${bin_path}"
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${target}> "${bin_path}"
-        COMMAND if not $<CONFIG> == "Ship" copy /Y "$<TARGET_PDB_FILE:${target}>" "${bin_path}"
+        COMMAND if not $<CONFIG> == "Ship" ${CMAKE_COMMAND} -E copy "$<TARGET_PDB_FILE:${target}>" "${bin_path}"
     )
 endmacro ()
 
@@ -395,7 +395,7 @@ macro (add_copy_target_lib_to_sandbox_command target)
     add_custom_command (TARGET ${target} POST_BUILD
         COMMAND if not exist "${bin_path}" mkdir "${bin_path}"
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${target}> "${bin_path}"
-        COMMAND if not $<CONFIG> == "Ship" copy /Y "$<TARGET_PDB_FILE:${target}>" "${bin_path}"
+        COMMAND if not $<CONFIG> == "Ship" c${CMAKE_COMMAND} -E copy "$<TARGET_PDB_FILE:${target}>" "${bin_path}"
     )
 
     # Copy the import library.
