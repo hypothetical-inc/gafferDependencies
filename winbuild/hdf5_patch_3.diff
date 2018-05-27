@@ -1,5 +1,5 @@
---- hdf5-1.8.20/CMakeLists.txt	2018-05-26 18:01:08.243573951 -0700
-+++ hdf5-1.8.20/CMakeLists.txt	2018-05-26 18:00:02.000000000 -0700
+--- a/hdf5-1.8.20/CMakeLists.txt	2018-05-26 18:01:08.243573951 -0700
++++ b/hdf5-1.8.20/CMakeLists.txt	2018-05-26 18:00:02.000000000 -0700
 @@ -631,7 +631,7 @@
        message (STATUS " **** Allowing unsupported HL and thread-safety options **** ")
      endif ()
