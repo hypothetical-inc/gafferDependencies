@@ -16,6 +16,7 @@ if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 
 cd %ROOT_DIR%
+copy /Y %ROOT_DIR%\winbuild\HDFTests.c %ROOT_DIR%\hdf5-1.8.20\config\cmake_ext_mod\HDFTests.c
 rem del %ROOT_DIR%\hdf5-1.8.20\config\cmake_ext_mod\ConfigureChecks.cmake
 rem del %ROOT_DIR%\hdf5-1.8.20\config\cmake_ext_mod\HDF5Tests.c
 rem del %ROOT_DIR%\hdf5-1.8.20\src\H5Omtime.c
