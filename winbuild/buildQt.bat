@@ -25,6 +25,8 @@ call configure.bat -prefix %BUILD_DIR% -plugindir %BUILD_DIR%\qt\plugins -releas
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 
 %ROOT_DIR%\winbuild\jom\jom.exe
+rem Run it again as it fails the first go
+%ROOT_DIR%\winbuild\jom\jom.exe
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 %ROOT_DIR%\winbuild\jom\jom.exe install
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
