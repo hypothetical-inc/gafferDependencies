@@ -15,6 +15,9 @@ if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 %ROOT_DIR%\winbuild\7zip\7za.exe x -aoa %ARCHIVE_ROOT_NAME%.tar
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 
+cd %ROOT_DIR%
+%ROOT_DIR%\winbuild\patch\bin\patch -f -p1 < %ROOT_DIR%\winbuild\usd_patch_1.diff
+
 cd %WORKING_DIR%
 
 mkdir %BUILD_DIR%\doc\licenses
