@@ -18,6 +18,8 @@ set PATH=%PATH%;%BUILD_DIR%\\lib;%BUILD_DIR%\\bin
 rem We should probably check this batch file to make sure ERRORLEVEL
 rem is set appropriately?
 
+set QMAKESPEC=win32-msvc2015
+
 %ROOT_DIR%\winbuild\jom\jom.exe distclean
 call configure.bat -prefix %BUILD_DIR% -plugindir %BUILD_DIR%\qt\plugins -release -opensource -confirm-license -opengl desktop -no-angle -no-audio-backend -no-dbus -skip qtconnectivity -skip qtwebengine -skip qt3d -skip qtdeclarative -skip qtwebkit -nomake examples -nomake tests -system-zlib -no-openssl -I %BUILD_DIR%\include -L %BUILD_DIR%\lib
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
