@@ -16,12 +16,12 @@ if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 
 cd %ROOT_DIR%
-copy /Y %ROOT_DIR%\winbuild\HDFTests.c %ROOT_DIR%\hdf5-1.8.20\config\cmake_ext_mod\HDFTests.c
 rem del %ROOT_DIR%\hdf5-1.8.20\config\cmake_ext_mod\ConfigureChecks.cmake
 rem del %ROOT_DIR%\hdf5-1.8.20\config\cmake_ext_mod\HDF5Tests.c
 rem del %ROOT_DIR%\hdf5-1.8.20\src\H5Omtime.c
 rem %ROOT_DIR%\winbuild\patch\bin\patch -f -p1 < %ROOT_DIR%\winbuild\hdf5_patch_1.diff
 rem %ROOT_DIR%\winbuild\patch\bin\patch -f -p1 < %ROOT_DIR%\winbuild\hdf5_patch_2.diff
+%ROOT_DIR%\winbuild\patch\bin\patch -f -p1 < %ROOT_DIR%\winbuild\hdf5_patch_3.diff
 
 cd %WORKING_DIR%
 
