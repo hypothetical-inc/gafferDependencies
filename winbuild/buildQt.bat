@@ -29,8 +29,8 @@ xcopy /E /Q /Y %BUILD_DIR%\include\freetype2 %BUILD_DIR%\tempqt\include\freetype
 xcopy /E /Q /Y %BUILD_DIR%\include\openssl %BUILD_DIR%\tempqt\include\openssl
 
 rem zlib headers
-copy /Y %BUILD_DIR%\include\zlib.h %BUILD_DIR%\tempqt\lib\zlib.h
-copy /Y %BUILD_DIR%\include\zconf.h %BUILD_DIR%\tempqt\lib\zconf.h
+copy /Y %BUILD_DIR%\include\zlib.h %BUILD_DIR%\tempqt\include\zlib.h
+copy /Y %BUILD_DIR%\include\zconf.h %BUILD_DIR%\tempqt\include\zconf.h
 
 rem jpeg headers
 copy /Y %BUILD_DIR%\include\jconfig.h %BUILD_DIR%\tempqt\lib\jconfig.h
