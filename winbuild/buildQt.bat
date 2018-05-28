@@ -68,6 +68,7 @@ call configure.bat -prefix %BUILD_DIR% -plugindir %BUILD_DIR%\qt\plugins -releas
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 
 %ROOT_DIR%\winbuild\jom\jom.exe
+%ROOT_DIR%\winbuild\jom\jom.exe
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 %ROOT_DIR%\winbuild\jom\jom.exe install
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
