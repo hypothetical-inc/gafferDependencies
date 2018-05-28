@@ -29,31 +29,31 @@ xcopy /E /Q /Y %BUILD_DIR%\include\freetype2 %BUILD_DIR%\tempqt\include\freetype
 xcopy /E /Q /Y %BUILD_DIR%\include\openssl %BUILD_DIR%\tempqt\include\openssl
 
 rem zlib headers
-copy /Y %BUILD_DIR%\lib\zlib.h %BUILD_DIR%\tempqt\lib\zlib.h
-copy /Y %BUILD_DIR%\lib\zconf.h %BUILD_DIR%\tempqt\lib\zconf.h
+copy /Y %BUILD_DIR%\include\zlib.h %BUILD_DIR%\tempqt\lib\zlib.h
+copy /Y %BUILD_DIR%\include\zconf.h %BUILD_DIR%\tempqt\lib\zconf.h
 
 rem jpeg headers
-copy /Y %BUILD_DIR%\lib\jconfig.h %BUILD_DIR%\tempqt\lib\jconfig.h
-copy /Y %BUILD_DIR%\lib\jerror.h %BUILD_DIR%\tempqt\lib\jcerror.h
-copy /Y %BUILD_DIR%\lib\jmorecfg.h %BUILD_DIR%\tempqt\lib\jmorecfg.h
-copy /Y %BUILD_DIR%\lib\jpeglib.h %BUILD_DIR%\tempqt\lib\jpeglib.h
+copy /Y %BUILD_DIR%\include\jconfig.h %BUILD_DIR%\tempqt\lib\jconfig.h
+copy /Y %BUILD_DIR%\include\jerror.h %BUILD_DIR%\tempqt\lib\jcerror.h
+copy /Y %BUILD_DIR%\include\jmorecfg.h %BUILD_DIR%\tempqt\lib\jmorecfg.h
+copy /Y %BUILD_DIR%\include\jpeglib.h %BUILD_DIR%\tempqt\lib\jpeglib.h
 
 rem tiff headers
-copy /Y %BUILD_DIR%\lib\t4.h %BUILD_DIR%\tempqt\lib\t4.h
-copy /Y %BUILD_DIR%\lib\tif_config.h %BUILD_DIR%\tempqt\lib\tif_config.h
-copy /Y %BUILD_DIR%\lib\tif_config.vc.h %BUILD_DIR%\tempqt\lib\tif_config.vc.h
-copy /Y %BUILD_DIR%\lib\tif_config.wince.h %BUILD_DIR%\tempqt\lib\tif_config.wince.h
-copy /Y %BUILD_DIR%\lib\tif_dir.h %BUILD_DIR%\tempqt\lib\tif_dir.h
-copy /Y %BUILD_DIR%\lib\tif_fax3.h %BUILD_DIR%\tempqt\lib\tif_fax3.h
-copy /Y %BUILD_DIR%\lib\tif_predict.h %BUILD_DIR%\tempqt\lib\tif_predict.h
-copy /Y %BUILD_DIR%\lib\tiff.h %BUILD_DIR%\tempqt\lib\tiff.h
-copy /Y %BUILD_DIR%\lib\tiffconf.h %BUILD_DIR%\tempqt\lib\tiffconf.h
-copy /Y %BUILD_DIR%\lib\tiffconf.vc.h %BUILD_DIR%\tempqt\lib\tiffconf.vc.h
-copy /Y %BUILD_DIR%\lib\tiffconf.wince.h %BUILD_DIR%\tempqt\lib\tiffconf.wince.h
-copy /Y %BUILD_DIR%\lib\tiffio.h %BUILD_DIR%\tempqt\lib\tiffio.h
-copy /Y %BUILD_DIR%\lib\tiffiop.h %BUILD_DIR%\tempqt\lib\tiffiop.h
-copy /Y %BUILD_DIR%\lib\tiffvers.h %BUILD_DIR%\tempqt\lib\tiffvers.h
-copy /Y %BUILD_DIR%\lib\uvcode.h %BUILD_DIR%\tempqt\lib\uvcode.h
+copy /Y %BUILD_DIR%\include\t4.h %BUILD_DIR%\tempqt\include\t4.h
+copy /Y %BUILD_DIR%\include\tif_config.h %BUILD_DIR%\tempqt\include\tif_config.h
+copy /Y %BUILD_DIR%\include\tif_config.vc.h %BUILD_DIR%\tempqt\include\tif_config.vc.h
+copy /Y %BUILD_DIR%\include\tif_config.wince.h %BUILD_DIR%\tempqt\include\tif_config.wince.h
+copy /Y %BUILD_DIR%\include\tif_dir.h %BUILD_DIR%\tempqt\include\tif_dir.h
+copy /Y %BUILD_DIR%\include\tif_fax3.h %BUILD_DIR%\tempqt\include\tif_fax3.h
+copy /Y %BUILD_DIR%\include\tif_predict.h %BUILD_DIR%\tempqt\include\tif_predict.h
+copy /Y %BUILD_DIR%\include\tiff.h %BUILD_DIR%\tempqt\include\tiff.h
+copy /Y %BUILD_DIR%\include\tiffconf.h %BUILD_DIR%\tempqt\include\tiffconf.h
+copy /Y %BUILD_DIR%\include\tiffconf.vc.h %BUILD_DIR%\tempqt\include\tiffconf.vc.h
+copy /Y %BUILD_DIR%\include\tiffconf.wince.h %BUILD_DIR%\tempqt\include\tiffconf.wince.h
+copy /Y %BUILD_DIR%\include\tiffio.h %BUILD_DIR%\tempqt\include\tiffio.h
+copy /Y %BUILD_DIR%\include\tiffiop.h %BUILD_DIR%\tempqt\include\tiffiop.h
+copy /Y %BUILD_DIR%\include\tiffvers.h %BUILD_DIR%\tempqt\include\tiffvers.h
+copy /Y %BUILD_DIR%\include\uvcode.h %BUILD_DIR%\tempqt\include\uvcode.h
 
 rem We need to have the lib dir
 set PATH=%PATH%;%BUILD_DIR%\\tempqt\\lib;%BUILD_DIR%\\bin
