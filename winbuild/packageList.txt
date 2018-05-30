@@ -19,7 +19,7 @@ bin/abcstitcher.exe
 bin/abctree.exe
 
 bin/usd*
-bin/sdfdump
+bin/sdfdump.exe
 
 bin/glew32.dll
 bin/hdf5*
@@ -84,18 +84,34 @@ lib/cmake
 
 lib/cmark*.lib
 
-lib/libtracelite*
-lib/libarch*
-lib/libtf*
-lib/libjs*
-lib/libwork*
-lib/libplug*
-lib/libkind*
-lib/libgf*
-lib/libvt*
-lib/libar*
-lib/libsdf*
-lib/libpcp*
+lib/tracelite.lib
+lib/arch.lib
+lib/tf.lib
+lib/js.lib
+lib/work.lib
+lib/plug.lib
+lib/kind.lib
+lib/gf.lib
+lib/vt.lib
+lib/ar.lib
+lib/sdf.lib
+lib/pcp.lib
+lib/usd.lib
+lib/usd*
+
+lib/libtracelite.dll
+lib/libarch.dll
+lib/libtf.dll
+lib/libjs.dll
+lib/libwork.dll
+lib/libplug.dll
+lib/libkind.dll
+lib/libgf.dll
+lib/libvt.dll
+lib/libar.dll
+lib/libsdf.dll
+lib/libpcp.dll
+lib/libusd.dll
 lib/libusd*
 
 mkspecs
@@ -125,6 +141,7 @@ python/Qt.py
 python/iex.pyd
 python/imath.pyd
 python/pyopenvdb.pyd
+python/pxr
 
 include/IECore*
 include/boost*
