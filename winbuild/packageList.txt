@@ -26,6 +26,7 @@ bin/hdf5*
 bin/jpeg*
 bin/libpng*
 bin/OpenImageIO*
+bin/openvdb.dll
 bin/osl*
 bin/Qt*
 bin/tbb*
