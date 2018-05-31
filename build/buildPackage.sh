@@ -150,8 +150,8 @@ manifest="
 	include/pyopenvdb.h
 	include/pxr
 
-	renderMan
-	arnold
+	${RMAN_ROOT:+renderMan}
+	${ARNOLD_ROOT:+arnold}
 
 	appleseedDisplays
 
