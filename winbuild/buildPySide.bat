@@ -18,4 +18,8 @@ if %CMAKE_GENERATOR%=="NMake Makefiles JOM" (
 python setup.py --ignore-git --qmake=%BUILD_DIR%\bin\qmake.exe --openssl=%BUILD_DIR%\lib --cmake=%CMAKE_PATH% install
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 
+move /Y %BUILD_DIR%\site-packages\PySide2 %BUILD_DIR%\lib64\site-packages\PySide2
+move /Y %BUILD_DIR%\site-packages\PySide2-5.6-py2.7.egg-info %BUILD_DIR%\lib64\site-packages\PySide2-5.6-py2.7.egg-info
+move /Y %BUILD_DIR%\site-packages\pyside2uic %BUILD_DIR%\lib64\site-packages\pyside2uic
+
 ENDLOCAL

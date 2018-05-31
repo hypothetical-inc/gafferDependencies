@@ -40,6 +40,6 @@ if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 cmake --build . --config %BUILD_TYPE% --target install -- VERBOSE=1
 if %ERRORLEVEL% NEQ 0 (exit /b %ERRORLEVEL%)
 
-move %BUILD_DIR%\lib\python\pxr %BUILD_DIR\python\pxr
+move /Y %BUILD_DIR%\lib\python\pxr %BUILD_DIR%\python\pxr
 
 ENDLOCAL
