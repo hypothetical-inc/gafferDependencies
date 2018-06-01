@@ -67,4 +67,4 @@ mkdir /tmp/$packageName
 cd /tmp/$packageName
 tar -x -f /tmp/intermediate.tar
 cd /tmp
-tar -c -z -f `dirname $BUILD_DIR`/$archiveName $packageName
+tar -c -z -f $BUILD_DIR/$archiveName $packageName
