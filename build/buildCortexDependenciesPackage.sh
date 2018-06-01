@@ -19,8 +19,7 @@ cd $BUILD_DIR
 
 manifest="
 
-	bin/python
-	bin/python*[0-9]
+	bin/python*
 
 	bin/exrheader
 	bin/maketx
