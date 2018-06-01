@@ -54,3 +54,4 @@ cd `dirname $0`
 ./buildPySide.sh
 ./buildQtPy.sh
 ./buildPackage.sh
+./buildCortexDependenciesPackage.sh
