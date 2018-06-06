@@ -19,10 +19,28 @@ cd $BUILD_DIR
 
 manifest="
 
+	bin/moc
+	bin/qmake
+	bin/rcc
+	bin/uic
+
 	bin/python*
 
 	bin/exrheader
 	bin/maketx
+	bin/oiiotool
+	bin/oslc
+	bin/oslinfo
+
+	bin/abcconvert
+	bin/abcecho
+	bin/abcechobounds
+	bin/abcls
+	bin/abcstitcher
+	bin/abctree
+
+	bin/usd*
+	bin/sdfdump
 
 	lib/libboost_*$SHLIBSUFFIX*
 	lib/libboost_test_exec_monitor.a
@@ -36,23 +54,115 @@ manifest="
 	lib/libPyIex*$SHLIBSUFFIX*
 	lib/libPyImath*$SHLIBSUFFIX*
 
+	lib/libtiff*$SHLIBSUFFIX*
+	lib/libfreetype*$SHLIBSUFFIX*
+	lib/libjpeg*$SHLIBSUFFIX*
+	lib/libpng*$SHLIBSUFFIX*
+
+	lib/libOpenImageIO*$SHLIBSUFFIX*
+	lib/libOpenColorIO*$SHLIBSUFFIX*
+
+	lib/libosl*
+
 	lib/libpython*$SHLIBSUFFIX*
 	lib/Python.framework*
 	lib/python$PYTHON_VERSION
 
+	lib/libGLEW*$SHLIBSUFFIX*
 	lib/libtbb*$SHLIBSUFFIX*
 
-	doc/licenses
+	lib/libhdf5*$SHLIBSUFFIX*
+	lib/libAlembic*
 
+	lib/libQt*
+	lib/Qt*.framework
+	lib/cmake
+	mkspecs
+
+	lib/libxerces-c*$SHLIBSUFFIX*
+
+	lib/libopenvdb*$SHLIBSUFFIX*
+	lib/libblosc*$SHLIBSUFFIX*
+
+	lib/libtracelite$SHLIBSUFFIX
+	lib/libarch$SHLIBSUFFIX
+	lib/libtf$SHLIBSUFFIX
+	lib/libjs$SHLIBSUFFIX
+	lib/libwork$SHLIBSUFFIX
+	lib/libplug$SHLIBSUFFIX
+	lib/libkind$SHLIBSUFFIX
+	lib/libgf$SHLIBSUFFIX
+	lib/libvt$SHLIBSUFFIX
+	lib/libar$SHLIBSUFFIX
+	lib/libsdf$SHLIBSUFFIX
+	lib/libpcp$SHLIBSUFFIX
+	lib/libusd*$SHLIBSUFFIX
+
+	fonts
+	resources
+	shaders
+	qt
+
+	openColorIO
+
+	glsl/IECoreGL
+	glsl/*.frag
+	glsl/*.vert
+
+	doc/licenses
+	doc/cortex/html
+	doc/osl*
+
+	python/OpenGL
+	python/PyOpenColorIO*
+	python/Qt.py
+	python/pyopenvdb*
 	python/iexmodule*
 	python/imathmodule*
+	python/pxr
 
 	include/boost
+	include/GL
 	include/OpenEXR
 	include/python*
 	include/tbb
+	include/OSL
+	include/OpenImageIO
+	include/OpenColorIO
+	include/Qt*
+	include/freetype2
+	include/Alembic
+	include/openvdb
+	include/blosc*.h
+	include/tiff*
+	include/png*
+	include/libpng*
+	include/jconfig.h
+	include/jerror.h
+	include/jmorecfg.h
+	include/jpeglib.h
+	include/pyopenvdb.h
+	include/pxr
+
+	${RMAN_ROOT:+renderMan}
+	${ARNOLD_ROOT:+arnold}
+
+	appleseedDisplays
+
+	share/usd
+
+	appleseed/bin/appleseed.cli
+	appleseed/include
+	appleseed/lib
+	appleseed/samples
+	appleseed/schemas
+	appleseed/settings
+	appleseed/shaders
+
+	lib/libcmark*$SHLIBSUFFIX*
 
 "
+
 packageName=cortexDependencies-$VERSION-$PLATFORM
 archiveName=$packageName.tar.gz
 
@@ -66,4 +176,4 @@ mkdir /tmp/$packageName
 cd /tmp/$packageName
 tar -x -f /tmp/intermediate.tar
 cd /tmp
-tar -c -z -f $BUILD_DIR/$archiveName $packageName
+tar -c -z -f `dirname $BUILD_DIR`/$archiveName $packageName
