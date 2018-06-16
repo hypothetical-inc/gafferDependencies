@@ -3,7 +3,7 @@
 set -e
 shopt -s nullglob
 
-VERSION=0.47.0.0
+VERSION=0.46.0.0
 
 PYTHON_VERSION=2.7
 
@@ -24,8 +24,7 @@ manifest="
 	bin/rcc
 	bin/uic
 
-	bin/python
-	bin/python*[0-9]
+	bin/python*
 
 	bin/exrheader
 	bin/maketx
@@ -45,8 +44,6 @@ manifest="
 
 	lib/libboost_*$SHLIBSUFFIX*
 	lib/libboost_test_exec_monitor.a
-
-	lib/libIECore*$SHLIBSUFFIX
 
 	lib/libIex*$SHLIBSUFFIX*
 	lib/libHalf*$SHLIBSUFFIX*
@@ -116,8 +113,6 @@ manifest="
 	doc/cortex/html
 	doc/osl*
 
-	python/IECore*
-	python/9to10
 	python/OpenGL
 	python/PyOpenColorIO*
 	python/Qt.py
@@ -126,7 +121,6 @@ manifest="
 	python/imathmodule*
 	python/pxr
 
-	include/IECore*
 	include/boost
 	include/GL
 	include/OpenEXR
@@ -169,7 +163,7 @@ manifest="
 
 "
 
-packageName=gafferDependencies-$VERSION-$PLATFORM
+packageName=cortexDependencies-$VERSION-$PLATFORM
 archiveName=$packageName.tar.gz
 
 # Longwinded method for putting a prefix on the filenames

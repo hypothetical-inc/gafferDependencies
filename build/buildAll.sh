@@ -2,7 +2,7 @@
 
 set -e
 
-for n in "BUILD_DIR" "ARNOLD_ROOT" "RMAN_ROOT" ; do
+for n in "BUILD_DIR" ; do
 	if [ -z "${!n}" ]; then
 		echo "ERROR : $n environment variable not set"
 		exit 1
@@ -55,3 +55,4 @@ cd `dirname $0`
 ./buildPySide.sh
 ./buildQtPy.sh
 ./buildPackage.sh
+./buildCortexDependenciesPackage.sh
