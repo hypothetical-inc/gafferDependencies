@@ -65,14 +65,53 @@
 
 	"manifest" : [
 
-		"bin/maketx",
-		"bin/oiiotool",
+		"bin/maketx{executableExtension}",
+		"bin/oiiotool{executableExtension}",
 
 		"include/OpenImageIO",
-		"lib/libOpenImageIO*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}OpenImageIO*{sharedLibraryExtension}*",
 
 		"doc/openimageio.pdf",
 
 	],
+	"platform:windows" : {
+
+		"commands" : [
+
+			"mkdir gafferBuild",
+			"cd gafferBuild &&"
+				" cmake"
+			 	" -G {cmakeGenerator}"
+				" -D CMAKE_CXX_STANDARD={c++Standard}"
+			 	" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+			 	" -D CMAKE_INSTALL_PREFIX={buildDirFwd}"
+			 	" -D CMAKE_PREFIX_PATH={buildDirFwd}"
+			 	" -D USE_FFMPEG=OFF"
+			 	" -D USE_QT=OFF"
+			 	" -D USE_PYTHON=OFF"
+			 	" -D BUILDSTATIC=OFF"
+				" -D BOOST_ROOT={buildDirFwd}"
+			 	" -D OPENEXR_INCLUDE_PATH={buildDirFwd}/include"
+			 	" -D OPENEXR_IMATH_LIBRARY={buildDirFwd}/lib/Imath.lib"
+			 	" -D OPENEXR_ILMIMF_LIBRARY={buildDirFwd}/lib/IlmImf.lib"
+				" -D OPENEXR_IEX_LIBRARY={buildDirFwd}/lib/Iex.lib"
+				" -D OPENEXR_ILMTHREAD_LIBRARY={buildDirFwd}/lib/IlmThread.lib"
+				" -D ZLIB_INCLUDE_DIR={buildDirFwd}/include"
+				" -D ZLIB_LIBRARY={buildDirFwd}/lib/zlib.lib"
+				" -D PNG_PNG_INCLUDE_DIR={buildDirFwd}/include"
+				" -D PNG_LIBRARY={buildDirFwd}/lib/libpng16.lib"
+				" -D JPEG_INCLUDE_DIR={buildDirFwd}/include"
+				" -D JPEG_LIBRARY={buildDirFwd}/lib/jpeg.lib"
+				" -D TIFF_INCLUDE_DIR={buildDirFwd}/include"
+				" -D TIFF_LIBRARY={buildDirFwd}/lib/libtiff.lib"
+				" -D PYTHON_INCLUDE_DIR={pythonIncludeDir}"
+				" -D PYTHON_LIBRARY={pythonLibDir}/python{pythonMajorVersion}{pythonMinorVersion}.lib"
+				" -D OCIO_LIBRARY_PATH={buildDirFwd}/lib/OpenColorIO.lib"
+			 	" ..",
+			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
+
+		]
+
+	}
 
 }
