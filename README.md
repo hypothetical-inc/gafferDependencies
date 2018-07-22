@@ -17,12 +17,23 @@ We strongly recommend using the precompiled binaries as described above, but if 
 
 Since the build covers so many different projects, it requires the installation of several common software development tools, most of which should be installed by default on a typical developer machine. They include (but are probably not limited to) :
 
+#### Linux and OS X
 - Make
 - CMake
 - SCons
 - libbz2 (and headers)
 
 See https://github.com/GafferHQ/build for a Docker container which contains all necessary prerequisites.
+#### Windows
+- Microsoft Visual Studio 2017 (Community edition is a free version that is known to work)
+- CMake
+- Python 2.7.xx
+- gnuWin32 packages (available at http://gnuwin32.sourceforge.net/packages.html)
+  - Bison
+  - Flex
+  - Zlib
+  - __Flex and Bison should not be installed in a path that contains spaces.__ This includes the installer default (C:\\Program Files (x86)\\) Doing so will prevent Open Shading Language from building.
+  - Ensure the "bin", "include" and "lib" directories are included in your PATH environment variable prior to building. This is _not_ set automatically by the gnuWin32 installers.
 
 ### Invoking the build
 
@@ -31,13 +42,8 @@ The build is controlled by several environment variables, which must be set up b
 - ARNOLD_ROOT : Path to the root of an Arnold installation
 - RMAN_ROOT : Path to the root of a 3delight installation
 
-The build is then initiated with `build.py`, which should be run from the root directory of the project :
-
-```
-./build.py --buildDir /path/to/build
-```
-
-Subsets of the dependencies can be built using the `--projects` command line argument :
+#### Linux and OS X
+The build is then initiated using a Python script, which should be run from the root directory of the project :
 
 ```
 ./build.py --buildDir /path/to/build --projects TBB
@@ -47,4 +53,24 @@ Variants are specified using the `--variant:<Project>` command line arguments :
 
 ```
 ./build.py --buildDir /path/to/build --variants:Python 3
+```
+#### Windows
+The build is then initiated using the "x64 Native Tools Command Prompt" for Visual Studio 2017. This is a special command prompt that sets up all of the environment variables for Visual Studio to find the various tools needed for building. It is installed with Visual Studio and is accessible from the start menu under Visual Studio 2017.
+
+Individual packages and variants are built using the build.py script in the manner as Linux and OS X dependencies.
+
+#### Universal Python Builder
+Some packages are built using a common Python script and configuration settings for each package. These are built by calling the build.py script in the "build" directory (for all of Linux, OS X and Windows) and specifying the package to build and the build directory.
+
+For example, to build Boost on Linux and OS X and you would run:
+```
+./build/build.py --project Boost --buildDir $BUILD_DIR
+```
+and on Windows :
+```
+python build/build.py --project Boost --buildDir %BUILD_DIR%
+```
+A list of projects that have are built using this script is shown if you run
+```
+./build/build.py
 ```
