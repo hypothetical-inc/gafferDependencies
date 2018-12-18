@@ -55,11 +55,12 @@
 
 	"manifest" : [
 
-		"bin/usd*",
-		"bin/sdfdump",
+		"bin/usd*{executableExtension}",
+		"bin/sdfdump{executableExtension}",
 
 		"include/pxr",
 
+		# lib prefix is accurate for all platforms
 		"lib/libtrace{sharedLibraryExtension}",
 		"lib/libarch{sharedLibraryExtension}",
 		"lib/libtf{sharedLibraryExtension}",
@@ -103,6 +104,35 @@
 			"extraArguments" : "-D PXR_USE_PYTHON_3=TRUE",
 
 		},
+		
+	},
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			"mkdir gafferBuild",
+			"cd gafferBuild && "
+				" cmake"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_PREFIX_PATH={buildDir}"
+				" -D Boost_NO_BOOST_CMAKE=TRUE"
+				" -D PXR_BUILD_IMAGING=FALSE"
+				" -D PXR_BUILD_TESTS=FALSE"
+				" -D Boost_NO_SYSTEM_PATHS=TRUE"
+				" -D PXR_BUILD_ALEMBIC_PLUGIN=TRUE"
+				" -D PXR_ENABLE_HDF5_SUPPORT=FALSE"
+				" -D ALEMBIC_DIR={buildDir}/lib"
+				" -D OPENEXR_LOCATION={buildDir}/lib"
+				# Disable Python support until USD supports Python 3.
+				" -D PXR_ENABLE_PYTHON_SUPPORT=FALSE"
+				" ..",
+
+			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
+
+		],
 
 	},
 
