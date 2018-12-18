@@ -20,6 +20,8 @@
 
 	"manifest" : [
 
+		# The "lib" prefix is correct for all platforms
+
 		"lib/libssl*{sharedLibraryExtension}*",
 		"lib/libcrypto*{sharedLibraryExtension}*",
 
@@ -32,6 +34,18 @@
 			"KERNEL_BITS" : "64",
 
 		},
+
+	},
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			"perl Configure VC-WIN64A --prefix={buildDir} --openssldir={buildDir}",
+			"nmake",
+			"nmake install",
+
+		],
 
 	},
 
