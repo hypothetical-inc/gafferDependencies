@@ -1,0 +1,11 @@
+--- ./src/appleseed/foundation/image/genericimagefilewriter.h
++++ ./src/appleseed/foundation/image/genericimagefilewriter.h
+@@ -92,7 +92,7 @@
+     struct Impl;
+     Impl* impl;
+ 
+-    OIIO::ImageOutput*  m_writer;
++    std::unique_ptr<OIIO::ImageOutput>  m_writer;
+     const char*         m_filename;
+ };
+ 

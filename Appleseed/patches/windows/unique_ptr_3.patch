@@ -1,0 +1,22 @@
+--- ./src/appleseed/foundation/image/genericprogressiveimagefilereader.cpp
++++ ./src/appleseed/foundation/image/genericprogressiveimagefilereader.cpp
+@@ -65,7 +65,7 @@
+ {
+     Logger*                                 m_logger;
+     string                                  m_filename;
+-    OIIO::ImageInput*                       m_input;
++    std::unique_ptr<OIIO::ImageInput>                       m_input;
+     bool                                    m_supports_random_access;
+     bool                                    m_is_tiled;
+     CanvasProperties                        m_props;
+@@ -177,9 +177,7 @@
+     // but OpenImageIO 1.5.20 (the version included in appleseed-deps at the time
+     // of writing) is too old to have this method. Since on Windows we link to
+     // OpenImageIO statically, this should be safe anyway.
+-    delete impl->m_input;
+-
+-    impl->m_input = nullptr;
++    OIIO::ImageInput::destroy(impl->m_input.release());
+ }
+ 
+ bool GenericProgressiveImageFileReader::is_open() const
