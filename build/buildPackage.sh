@@ -3,7 +3,7 @@
 set -e
 shopt -s nullglob
 
-VERSION=0.47.0.0
+VERSION=0.54.0.0
 
 PYTHON_VERSION=2.7
 
@@ -87,7 +87,7 @@ manifest="
 	lib/libopenvdb*$SHLIBSUFFIX*
 	lib/libblosc*$SHLIBSUFFIX*
 
-	lib/libtracelite$SHLIBSUFFIX
+	lib/libtrace$SHLIBSUFFIX
 	lib/libarch$SHLIBSUFFIX
 	lib/libtf$SHLIBSUFFIX
 	lib/libjs$SHLIBSUFFIX
@@ -100,6 +100,7 @@ manifest="
 	lib/libsdf$SHLIBSUFFIX
 	lib/libpcp$SHLIBSUFFIX
 	lib/libusd*$SHLIBSUFFIX
+	lib/usd
 
 	fonts
 	resources
@@ -115,6 +116,7 @@ manifest="
 	doc/licenses
 	doc/cortex/html
 	doc/osl*
+	doc/openimageio.pdf
 
 	python/IECore*
 	python/9to10
@@ -124,6 +126,7 @@ manifest="
 	python/pyopenvdb*
 	python/iexmodule*
 	python/imathmodule*
+	python/alembic*
 	python/pxr
 
 	include/IECore*

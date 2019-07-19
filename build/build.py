@@ -7,6 +7,8 @@ import multiprocessing
 import subprocess
 import shutil
 import sys
+import tarfile
+import zipfile
 
 def __projects() :
 
@@ -15,14 +17,33 @@ def __projects() :
 
 def __decompress( archive ) :
 
-	command = "tar -xvf {archive}".format( archive=archive )
-	sys.stderr.write( command + "\n" )
-	files = subprocess.check_output( command, stderr=subprocess.STDOUT, shell = True )
-	files = [ f for f in files.split( "\n" ) if f ]
-	files = [ f[2:] if f.startswith( "x " ) else f for f in files ]
+	if os.path.splitext( archive )[1] == ".zip" :
+		with zipfile.ZipFile( archive ) as f :
+			for info in f.infolist() :
+				extracted = f.extract( info.filename )
+				os.chmod( extracted, info.external_attr >> 16 )
+			files = f.namelist()
+	elif archive.endswith( ".tar.xz" ) :
+		## \todo When we eventually move to Python 3, we can use
+		# the `tarfile` module for this too.
+		command = "tar -xvf {archive}".format( archive=archive )
+		sys.stderr.write( command + "\n" )
+		files = subprocess.check_output( command, stderr=subprocess.STDOUT, shell = True )
+		files = [ f for f in files.split( "\n" ) if f ]
+		files = [ f[2:] if f.startswith( "x " ) else f for f in files ]
+	else :
+		with tarfile.open( archive, "r:*" ) as f :
+			f.extractall()
+			files = f.getnames()
+
 	dirs = { f.split( "/" )[0] for f in files }
-	assert( len( dirs ) ==  1 )
-	return next( iter( dirs ) )
+	if len( dirs ) == 1 :
+		# Well behaved archive with single top-level
+		# directory.
+		return next( iter( dirs ) )
+	else :
+		# Badly behaved archive
+		return "./"
 
 def __loadConfig( project, buildDir ) :
 
@@ -63,6 +84,8 @@ def __loadConfig( project, buildDir ) :
 			return { k : __substitute( v ) for k, v in o.items() }
 		elif isinstance( o, list ) :
 			return [ __substitute( x ) for x in o ]
+		elif isinstance( o, tuple ) :
+			return tuple( __substitute( x ) for x in o )
 		elif isinstance( o, str ) :
 			while True :
 				s = o.format( **variables )
@@ -101,20 +124,32 @@ def __buildProject( project, buildDir ) :
 	os.chdir( workingDir )
 
 	decompressedArchives = [ __decompress( "../../" + a ) for a in archives ]
-	os.chdir( decompressedArchives[0] )
+	os.chdir( config.get( "workingDir", decompressedArchives[0] ) )
 
 	if config["license"] is not None :
-		shutil.copy( config["license"], os.path.join( buildDir, "doc/licenses", project ) )
+		licenseDir = os.path.join( buildDir, "doc/licenses" )
+		if not os.path.exists( licenseDir ) :
+			os.makedirs( licenseDir )
+		if os.path.isfile( config["license"] ) :
+			shutil.copy( config["license"], os.path.join( licenseDir, project ) )
+		else :
+			shutil.copytree( config["license"], os.path.join( licenseDir, project ) )
 
 	for patch in glob.glob( "../../patches/*.patch" ) :
 		subprocess.check_call( "patch -p1 < {patch}".format( patch = patch ), shell = True )
 
 	environment = os.environ.copy()
-	environment.update( config.get( "environment", {} ) )
+	for k, v in config.get( "environment", {} ).items() :
+		environment[k] = os.path.expandvars( v )
 
 	for command in config["commands"] :
 		sys.stderr.write( command + "\n" )
 		subprocess.check_call( command, shell = True, env = environment )
+
+	for link in config.get( "symbolicLinks", [] ) :
+		if os.path.exists( link[0] ) :
+			os.remove( link[0] )
+		os.symlink( link[1], link[0] )
 
 parser = argparse.ArgumentParser()
 

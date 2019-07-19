@@ -1,0 +1,47 @@
+0.54.0.0
+--------
+
+- OpenEXR : Updated to version 2.3.0.
+- OpenVDB : Updated to version 6.0.0.
+- Blosc : Updated to version 1.15.1.
+- PySide : Updated to version corresponding with Maya 2018 Update 6.
+- Cortex : Updated to version 10.0.0-a58.
+- USD : Enable support for loading Alembic archives.
+
+0.54.0.0-rc3
+------------
+
+- Cortex : Updated to version 10.0.0-a54.
+
+0.54.0.0-rc2
+------------
+
+- Cortex : Updated to version 10.0.0-a53.
+
+0.54.0.0-rc1
+------------
+
+- Cortex : Updated to version 10.0.0-a52.
+- TBB : Updated to version 2018 Update 5.
+- Alembic : Added python bindings.
+
+0.53.0.0
+--------
+
+- Cortex : Updated to version 10.0.0-a45.
+- Qt : Updated to version corresponding to Maya 2018 Update 4.
+
+0.52.0.0
+--------
+
+- Cortex : Updated to version 10.0.0-a38.
+- USD : Fixed python module linking on OSX.
+
+0.51.0.0
+--------
+
+- Cortex : Updated to version 10.0.0-a35.
+- USD : Updated to version 18.09.
+- Xerces : Updated to version 3.2.2.
+- OpenImageIO : Added documentation to package.
+- OpenShadingLanguage : Fixed documentation installation.
