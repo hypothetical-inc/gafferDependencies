@@ -16,4 +16,12 @@
 
 	],
 
+	"platform:windows" : {
+
+		"commands" : [
+
+			"echo IlmBase on Windows is built as part of OpenEXR",
+		]
+	},
+
 }
