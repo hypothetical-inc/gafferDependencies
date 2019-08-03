@@ -68,4 +68,45 @@
 
 	},
 
+	"platform:windows" : {
+
+		"environment" : {
+
+			"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-adsk-5.6.1-vfx\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
+
+		},
+
+		"commands" : [
+
+			"cmake -E tar xf ../qt561-webkit.tgz",
+			"copy {buildDir}\\lib\\zlib.lib {buildDir}\\lib\\zdll.lib",
+			"copy {buildDir}\\lib\\libpng16.lib {buildDir}\\lib\\libpng.lib",
+			"copy {buildDir}\\lib\\jpeg.lib {buildDir}\\lib\\libjpeg.lib",
+			# help Qt find the right zlib.dll
+			"copy {buildDir}\\bin\\zlib.dll %ROOT_DIR%\\Qt\\working\\qt-adsk-5.6.1-vfx\\qtbase\\bin\\zlib.dll",
+			"call configure.bat"
+				" -prefix {buildDir}"
+				" -plugindir {buildDir}\\qt\\plugins"
+				" -release"
+				" -opensource"
+				" -confirm-license"
+				" -opengl desktop"
+				" -no-angle"
+				" -no-dbus"
+				" -skip qtconnectivity"
+				" -skip qtwebengine"
+				" -skip qt3d"
+				" -skip qtdeclarative"
+				" -nomake examples"
+				" -nomake tests"
+				" -system-zlib"
+				" -no-openssl"
+				" -I {buildDir}\\include"
+				" -L {buildDir}\\lib",
+			"jom.exe",
+			"jom.exe install",
+
+		]
+	}
+
 }
