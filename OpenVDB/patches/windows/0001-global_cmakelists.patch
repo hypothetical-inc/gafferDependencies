@@ -1,0 +1,55 @@
+--- ./openvdb/CMakeLists.txt
++++ ./openvdb/CMakeLists.txt
+@@ -130,7 +130,7 @@
+ INCLUDE_DIRECTORIES ( SYSTEM ${CPPUNIT_INCLUDE_DIR} )
+ 
+ IF (WIN32)
+-  ADD_DEFINITIONS ( -D_WIN32 -DNOMINMAX -DHALF_EXPORTS -DOPENVDB_DLL )
++  ADD_DEFINITIONS ( -D_WIN32 -DNOMINMAX -DOPENVDB_DLL )
+ ELSE ()
+   ADD_DEFINITIONS ( -pthread -fPIC )
+ ENDIF ()
+@@ -228,15 +228,12 @@
+ TARGET_LINK_LIBRARIES ( vdb_print
+   openvdb_shared
+   ${CMAKE_THREAD_LIBS_INIT}
+-  ${BLOSC_blosc_LIBRARY}
+-  m
+-  stdc++
+   )
+ 
+ SET ( VDB_RENDER_SOURCE_FILES cmd/openvdb_render/main.cc )
+ SET_SOURCE_FILES_PROPERTIES ( ${VDB_RENDER_SOURCE_FILES}
+   PROPERTIES
+-  COMPILE_FLAGS "-DOPENVDB_USE_BLOSC ${OPENVDB_USE_GLFW_FLAG}"
++  COMPILE_FLAGS "-DOPENEXR_DLL -DOPENVDB_USE_BLOSC ${OPENVDB_USE_GLFW_FLAG}"
+   )
+ ADD_EXECUTABLE ( vdb_render
+   ${VDB_RENDER_SOURCE_FILES}
+@@ -249,8 +246,6 @@
+   ${Openexr_ILMIMF_LIBRARY}
+   ${Ilmbase_ILMTHREAD_LIBRARY}
+   ${Ilmbase_IEX_LIBRARY}
+-  m
+-  stdc++
+   )
+ 
+ SET ( VDB_VIEW_SOURCE_FILES
+@@ -283,8 +278,6 @@
+     ${GLFW_LINK_LIBRARY}
+     ${GLFW_DEPENDENT_LIBRARIES}
+     ${GLEW_GLEW_LIBRARY}
+-    m
+-    stdc++
+     )
+ ENDIF ()
+ 
+@@ -392,8 +385,6 @@
+   TARGET_LINK_LIBRARIES ( vdb_test
+     ${CPPUnit_cppunit_LIBRARY}
+     openvdb_shared
+-    m
+-    stdc++
+     )
+ 
+   ADD_TEST ( vdb_unit_test vdb_test )

@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/openexr/openexr/releases/download/v2.3.0/pyilmbase-2.3.0.tar.gz"
+		"https://github.com/openexr/openexr/archive/v2.3.0.tar.gz"
 
 	],
 
@@ -27,5 +27,12 @@
 		"mv {buildDir}/lib/python*/site-packages/imathmodule.so {buildDir}/python",
 
 	],
+
+	"platform:windows" : {
+
+		"commands" : [
+			"echo PyIlmBase on Windows is built as part of OpenEXR",
+		]
+	},
 
 }
