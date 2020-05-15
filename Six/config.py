@@ -24,4 +24,15 @@
 
 	],
 
+	"platform:windows" : {
+
+		"commands" : [
+			
+			"if not exist {buildDir}\\python mkdir {buildDir}\\python",
+			"copy six.py {buildDir}\\python",
+
+		],
+		
+	},
+
 }
