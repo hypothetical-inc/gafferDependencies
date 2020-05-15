@@ -14,6 +14,7 @@ import shutil
 import sys
 import tarfile
 import zipfile
+import urllib
 
 __version = "2.1.1"
 
@@ -100,6 +101,8 @@ def __decompress( archive ) :
 		## \todo When we eventually move to Python 3, we can use
 		# the `tarfile` module for this too.
 		command = "tar -xvf {archive}".format( archive=archive )
+		if sys.platform == "win32":
+			command = "cmake -E tar xvf {archive}".format( archive=archive )
 		sys.stderr.write( command + "\n" )
 		files = subprocess.check_output( command, stderr=subprocess.STDOUT, shell = True )
 		files = [ f for f in files.split( "\n" ) if f ]
@@ -194,11 +197,12 @@ def __loadConfigs( variables, variants ) :
 	configs = {}
 	for project in __projects() :
 		config = __loadJSON( project )
+		config[ "platform" ] = variables[ "platform" ]
 		if project in variants :
 			__applyConfigOverrides( config, "variant:{}".format( variants[project] ) )
 		for variantProject, variant in variants.items() :
 			__applyConfigOverrides( config, "variant:{}:{}".format( variantProject, variant ) )
-		__applyConfigOverrides( config, "platform:osx" if sys.platform == "darwin" else "platform:linux" )
+		__applyConfigOverrides( config, { "darwin": "platform:osx", "win32": "platform:windows" }.get( sys.platform, "platform:linux" ) )
 		if config.get( "enabled", True ) :
 			configs[project] = config
 
@@ -269,9 +273,10 @@ def __buildProject( project, config, buildDir ) :
 		if os.path.exists( archivePath ) :
 			continue
 
-		downloadCommand = "curl -L {0} > {1}".format( download, archivePath )
-		sys.stderr.write( downloadCommand + "\n" )
-		subprocess.check_call( downloadCommand, shell = True )
+		# downloadCommand = "curl -L {0} > {1}".format( download, archivePath )
+		# sys.stderr.write( downloadCommand + "\n" )
+		# subprocess.check_call( downloadCommand, shell = True )
+		urllib.urlretrieve( download, archivePath )
 
 	workingDir = project + "/working"
 	if os.path.exists( workingDir ) :
@@ -294,13 +299,14 @@ def __buildProject( project, config, buildDir ) :
 				shutil.rmtree( licenseDest )
 			shutil.copytree( config["license"], licenseDest )
 
-	for patch in glob.glob( "../../patches/*.patch" ) :
+	for patch in glob.glob( "../../patches/{}/*.patch".format( config["platform"] ) ) :
+		# subprocess.check_call( "git apply --ignore-space-change --ignore-whitespace --whitespace=nowarn {patch}".format( patch = patch ), shell = True )
 		subprocess.check_call( "patch -p1 < {patch}".format( patch = patch ), shell = True )
 
 	environment = os.environ.copy()
 	for k, v in config.get( "environment", {} ).items() :
 		environment[k] = os.path.expandvars( v )
-
+	
 	for command in config["commands"] :
 		sys.stderr.write( command + "\n" )
 		subprocess.check_call( command, shell = True, env = environment )
@@ -455,12 +461,19 @@ for key, value in vars( args ).items() :
 
 variables = {
 	"buildDir" : os.path.abspath( args.buildDir ),
+	"buildDirFwd" : args.buildDir.replace("\\", "/"),
 	"jobs" : args.jobs,
 	"path" : os.environ["PATH"],
 	"version" : __version,
-	"platform" : "osx" if sys.platform == "darwin" else "linux",
-	"sharedLibraryExtension" : ".dylib" if sys.platform == "darwin" else ".so",
+	"platform" : { "darwin": "osx", "win32": "windows" }.get( sys.platform, "linux" ),
+	"sharedLibraryExtension" : { "darwin": ".dylib", "win32": ".dll" }.get( sys.platform, ".so" ),
+	"staticLibraryExtension" : ".lib" if sys.platform == "win32" else ".a",
+	"pythonModuleExtension" : ".pyd" if sys.platform == "win32" else ".so",
+	"executableExtension" : ".exe" if sys.platform == "win32" else "",
+	"libraryPrefix" : "" if sys.platform == "win32" else "lib",
 	"c++Standard" : "c++14",
+	"cmakeGenerator" : "\"NMake Makefiles JOM\"" if sys.platform == "win32" else "\"Unix Makefiles\"",
+	"cmakeBuildType": "Release",
 	"variants" : "".join( "-{}{}".format( key, variants[key] ) for key in sorted( variants.keys() ) ),
 }
 
