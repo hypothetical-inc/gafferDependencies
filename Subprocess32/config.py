@@ -25,4 +25,10 @@
 
 	],
 
+	"platform:windows" : {
+
+		"enabled" : False,
+
+	},
+
 }
