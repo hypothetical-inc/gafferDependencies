@@ -20,6 +20,7 @@
 
 		"include/GL",
 		"lib/{libraryPrefix}GLEW*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}GLEW*.lib",
 
 	],
 	"platform:windows" : {
