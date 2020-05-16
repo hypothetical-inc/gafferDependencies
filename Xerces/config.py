@@ -39,7 +39,7 @@
 			 	" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			 	" -D BUILD_SHARED_LIBS=OFF"
 			 	" ..",
-			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}"	
+			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
 
 		]
 

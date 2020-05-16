@@ -78,7 +78,7 @@
 				" -D OCIO_LIBRARY_PATH={buildDir}\\lib\\OpenColorIO.lib"
 			 	" ..",
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
-
+			"copy {buildDir}\\bin\\{libraryPrefix}OpenImageIO*{sharedLibraryExtension}* {buildDir}\\lib\\",
 		]
 
 	}

@@ -62,7 +62,7 @@
 				" -D ZLIB_ROOT={buildDir}"
 				" ..",
 			"cd build && cmake --build . --config {cmakeBuildType} --target install",
-
+			"copy {buildDir}\\bin\\{libraryPrefix}hdf5*{sharedLibraryExtension}* {buildDir}\\lib\\",
 		],
 
 	}
