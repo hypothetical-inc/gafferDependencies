@@ -24,7 +24,8 @@
 		"include/jmorecfg.h",
 		"include/jpeglib.h",
 
-		"lib/libjpeg*{sharedLibraryExtension}*",	# lib prefix is accurate for all platforms
+		"lib/libjpeg*{sharedLibraryExtension}*",	# Linux / Mac OS
+		"lib/libjpeg*.lib*",
 		"lib/jpeg62{sharedLibraryExtension}",	# Windows only
 		"lib/turbojpeg{sharedLibraryExtension}",	# Windows only
 	],

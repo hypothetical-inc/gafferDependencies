@@ -23,6 +23,7 @@
 
 		"include/blosc*.h",
 		"lib/{libraryPrefix}blosc*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}blosc*.lib",
 
 	],
 	"platform:windows" : {

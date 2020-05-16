@@ -47,6 +47,7 @@
 		"include/Alembic",
 
 		"lib/{libraryPrefix}Alembic*",
+		"lib/{libraryPrefix}Alembic*.lib",
 
 		"python/alembic*",
 
