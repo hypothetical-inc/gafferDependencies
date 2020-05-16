@@ -93,7 +93,7 @@
 				" .",
 			"cmake --build . --config {cmakeBuildType} --target install",
 			"if not exist \"{buildDir}\\python\" mkdir {buildDir}\\python",
-			"move {buildDir}\\PyOpenColorIO.dll {buildDir}\\python\\PyOpenColorIO.pyd",
+			"copy {buildDir}\\PyOpenColorIO.dll {buildDir}\\python\\PyOpenColorIO.pyd",
 			"if not exist \"{buildDir}\\openColorIO\" mkdir {buildDir}\\openColorIO",
 			"if not exist \"{buildDir}\\openColorIO\\luts\" mkdir {buildDir}\\openColorIO\\luts",
 			"copy ..\\OpenColorIO-Configs-1.0_r2\\nuke-default\\config.ocio {buildDir}\\openColorIO",

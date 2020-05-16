@@ -42,7 +42,7 @@
 
 			"nmake /f makefile.vc",
 			"copy libtiff\\*.h {buildDir}\\include",
-			"copy libtiff\\libtiff.lib {buildDir}\\lib"
+			"copy libtiff\\libtiff.lib {buildDir}\\lib",
 
 		],
 
