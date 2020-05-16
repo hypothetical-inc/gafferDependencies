@@ -58,6 +58,14 @@
 		"lib/{libraryPrefix}PyIex*{sharedLibraryExtension}*",
 		"lib/{libraryPrefix}PyImath*{sharedLibraryExtension}*",
 
+		"lib/{libraryPrefix}IlmImf*.lib",
+		"lib/{libraryPrefix}Iex*.lib",
+		"lib/{libraryPrefix}Half*.lib",
+		"lib/{libraryPrefix}IlmThread*.lib",
+		"lib/{libraryPrefix}Imath*.lib",
+		"lib/{libraryPrefix}PyIex*.lib",
+		"lib/{libraryPrefix}PyImath*.lib",
+
 		"python/iex{pythonModuleExtension}",
 		"python/imath{pythonModuleExtension}",
 

@@ -70,6 +70,7 @@
 
 		"include/OpenImageIO",
 		"lib/{libraryPrefix}OpenImageIO*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}OpenImageIO*.lib",
 
 		"doc/openimageio.pdf",
 

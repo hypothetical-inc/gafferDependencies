@@ -25,6 +25,7 @@
 	"manifest" : [
 
 		"lib/{libraryPrefix}xerces-c*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}xerces-c*.lib",
 
 	],
 	"platform:windows" : {

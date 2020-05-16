@@ -43,6 +43,7 @@
 		"include/openvdb",
 		"include/pyopenvdb.h",
 		"lib/{libraryPrefix}openvdb*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}openvdb*.lib",
 		"python/pyopenvdb*",
 
 	],

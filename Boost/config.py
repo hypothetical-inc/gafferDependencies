@@ -42,6 +42,7 @@
 
 		"include/boost{boostVersionSuffix}",
 		"lib/{libraryPrefix}boost_*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}boost_*.lib",
 		"lib/{libraryPrefix}boost_test_exec_monitor{staticLibraryExtension}",
 
 	],
