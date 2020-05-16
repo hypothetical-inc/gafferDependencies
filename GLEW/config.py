@@ -33,8 +33,8 @@
 				" -G {cmakeGenerator}"
 				" -DCMAKE_INSTALL_PREFIX={buildDir}"
 				" ..\\build\\cmake",
-			"cd build && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}"
-
+			"cd build && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
+			"copy {buildDir}\\bin\\{libraryPrefix}GLEW*{sharedLibraryExtension}* {buildDir}\\lib\\",
 		]
 
 	}

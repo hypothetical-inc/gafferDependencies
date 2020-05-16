@@ -41,7 +41,7 @@
 				" -D LLVM_REQUIRES_RTTI=ON"
 				" -D LLVM_TARGETS_TO_BUILD=\"X86\""
 				" ..",
-			"cd build && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}"
+			"cd build && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
 
 		],
 

@@ -96,7 +96,8 @@
 				" -D OSL_BUILD_MATERIALX=1"
 				" -D OSL_SHADER_INSTALL_DIR={buildDir}\\shaders"
 			 	" ..",
-			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}"
+			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
+			"copy {buildDir}\\bin\\{libraryPrefix}osl* {buildDir}\\lib\\",
 		
 		],
 

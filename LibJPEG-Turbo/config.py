@@ -42,7 +42,8 @@
 				" ..",
 
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
-
+			"copy {buildDir}\\bin\\jpeg62{sharedLibraryExtension} {buildDir}\\lib\\",
+			"copy {buildDir}\\bin\\turbojpeg{sharedLibraryExtension} {buildDir}\\lib\\",
 		],
 
 	},
