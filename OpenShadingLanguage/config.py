@@ -92,7 +92,8 @@
 				" -D FLEX_EXECUTABLE=flex"
 				" -D BISON_EXECUTABLE=bison"
 			 	" ..",
-			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}"
+			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
+			"copy {buildDir}\\bin\\{libraryPrefix}osl* {buildDir}\\lib\\",
 		
 		],
 

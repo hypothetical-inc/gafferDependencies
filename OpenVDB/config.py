@@ -78,8 +78,8 @@
 			# v7.0.0 names the Python library incorrectly
 			# v7.1 fixes this, when updating this line should change the extension to .pyd
 			# for both source and destination
-			"copy {buildDir}\\lib\\python2.7\\pyopenvdb.dll {buildDir}\\python\\pyopenvdb.pyd"
-
+			"copy {buildDir}\\lib\\python2.7\\pyopenvdb.dll {buildDir}\\python\\pyopenvdb.pyd",
+			"copy {buildDir}\\bin\\{libraryPrefix}openvdb*{sharedLibraryExtension}* {buildDir}\\lib\\",
 		],
 
 	},

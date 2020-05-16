@@ -140,6 +140,7 @@
 				" -L {buildDir}\\lib",
 			"jom.exe",
 			"jom.exe install",
+			"copy {buildDir}\\bin\\{libraryPrefix}Qt* {buildDir}\\lib\\",
 
 		]
 	}

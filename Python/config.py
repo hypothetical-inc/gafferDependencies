@@ -152,6 +152,7 @@
 				" python-cmake-buildsystem",
 			"cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
 			"copy {buildDir}\\libs\\*.lib {buildDir}\\lib",
+			"copy {buildDir}\\bin\\{libraryPrefix}python*{sharedLibraryExtension}* {buildDir}\\lib\\",
 		]
 
 	}

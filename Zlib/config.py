@@ -63,7 +63,7 @@
 			# for some reason Zlib building doesn't put zconf.h in the main source directory alongside zlib.h
 			# manually copy it there so Boost can find it
 			"cd gafferBuild && copy zconf.h ..",
-
+			"copy {buildDir}\\bin\\{libraryPrefix}zlib*{sharedLibraryExtension}* {buildDir}\\lib\\",
 		]
 
 	}
