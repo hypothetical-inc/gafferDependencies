@@ -22,6 +22,7 @@
 		"include/png*",
 		"include/libpng*",
 		"lib/libpng*{sharedLibraryExtension}*",	# lib prefix is accurate for all platforms
+		"lib/libpng*.lib",
 
 	],
 	"platform:windows" : {

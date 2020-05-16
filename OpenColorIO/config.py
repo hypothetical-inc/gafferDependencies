@@ -51,6 +51,7 @@
 
 		"include/OpenColorIO",
 		"lib/{libraryPrefix}OpenColorIO*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}OpenColorIO*.lib",
 		"openColorIO",
 		"python/PyOpenColorIO*",
 

@@ -31,6 +31,7 @@
 		"include/python*",
 
 		"lib/{libraryPrefix}python*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}python*.lib",
 		"lib/Python.framework*",
 		"lib/python{pythonVersion}",
 

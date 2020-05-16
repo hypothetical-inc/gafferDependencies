@@ -22,6 +22,7 @@
 	"manifest" : [
 
 		"lib/{libraryPrefix}hdf5*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}hdf5*.lib",
 
 	],
 	

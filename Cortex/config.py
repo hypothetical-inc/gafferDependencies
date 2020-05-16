@@ -65,7 +65,8 @@
 	"manifest" : [
 
 		"include/IECore*",
-		"lib/libIECore*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}IECore*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}IECore*.lib",
 		"python/IECore*",
 		"renderMan",
 		"arnold",

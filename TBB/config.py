@@ -22,6 +22,7 @@
 
 		"include/tbb",
 		"lib/{libraryPrefix}tbb*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}tbb*.lib",
 
 	],
 

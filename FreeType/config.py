@@ -29,6 +29,7 @@
 
 		"include/freetype2",
 		"lib/{libraryPrefix}freetype*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}freetype*.lib*",
 
 	],
 	"platform:windows" : {
