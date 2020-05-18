@@ -39,7 +39,6 @@
 		"include/python*",
 
 		"lib/{libraryPrefix}python*{sharedLibraryExtension}*",
-		"lib/{libraryPrefix}python*.lib",
 		"lib/Python.framework*",
 		"lib/python{pythonVersion}",
 
@@ -134,6 +133,21 @@
 
 		],
 
+		"manifest" : [
+
+			"bin/python{executableExtension}",
+			"bin/python*[0-9]{executableExtension}",
+			"bin/{libraryPrefix}python*{sharedLibraryExtension}*",
+
+			"include/python*",
+
+			"lib/{libraryPrefix}python*.lib",
+			"lib/Python.framework*",
+			"lib/python{pythonVersion}",
+			"lib64",
+
+		],
+
 		"commands" : [
 			"move ..\\python-cmake-buildsystem-master .\\python-cmake-buildsystem",
 
@@ -153,7 +167,6 @@
 				" python-cmake-buildsystem",
 			"cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
 			"copy {buildDir}\\libs\\*.lib {buildDir}\\lib",
-			"copy {buildDir}\\bin\\{libraryPrefix}python*{sharedLibraryExtension}* {buildDir}\\lib\\",
 		]
 
 	}
