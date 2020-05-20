@@ -20,7 +20,8 @@
 
 	"manifest" : [
 
-		"lib/{libraryPrefix}cmark*{sharedLibraryExtension}*"
+		"lib/{libraryPrefix}cmark*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}cmark*.lib",
 
 	],
 
