@@ -92,8 +92,15 @@
 				" ..",
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
 			"if not exist {buildDir}\\python mkdir {buildDir}\\python",
-			"move {buildDir}\\lib\\site-packages\\iex.pyd {buildDir}\\python\\iex.pyd",
-			"move {buildDir}\\lib\\site-packages\\imath.pyd {buildDir}\\python\\imath.pyd",
+			"copy {buildDir}\\lib\\site-packages\\iex.pyd {buildDir}\\python\\iex.pyd",
+			"copy {buildDir}\\lib\\site-packages\\imath.pyd {buildDir}\\python\\imath.pyd",
+			"copy {buildDir}\\bin\\{libraryPrefix}IlmImf*{sharedLibraryExtension}* {buildDir}\\lib\\",
+			"copy {buildDir}\\bin\\{libraryPrefix}Iex*{sharedLibraryExtension}* {buildDir}\\lib\\",
+			"copy {buildDir}\\bin\\{libraryPrefix}Half*{sharedLibraryExtension}* {buildDir}\\lib\\",
+			"copy {buildDir}\\bin\\{libraryPrefix}IlmThread*{sharedLibraryExtension}* {buildDir}\\lib\\",
+			"copy {buildDir}\\bin\\{libraryPrefix}Imath*{sharedLibraryExtension}* {buildDir}\\lib\\",
+			"copy {buildDir}\\bin\\{libraryPrefix}PyIex*{sharedLibraryExtension}* {buildDir}\\lib\\",
+			"copy {buildDir}\\bin\\{libraryPrefix}PyImath*{sharedLibraryExtension}* {buildDir}\\lib\\",
 		]
 	},
 
