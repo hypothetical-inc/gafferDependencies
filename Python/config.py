@@ -118,6 +118,12 @@
 
 	"platform:windows" : {
 
+		"publicVariables" : {
+
+			"pythonIncludeDir" : "{buildDir}/include",
+
+		},
+
 		"downloads" : [
 
 			"https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz",
@@ -131,7 +137,7 @@
 			"bin/python*[0-9]{executableExtension}",
 			"bin/{libraryPrefix}python*{sharedLibraryExtension}*",
 
-			"include/python*",
+			"include",
 
 			"lib/{libraryPrefix}python*.lib",
 			"lib/Python.framework*",
