@@ -2,17 +2,26 @@
 
 	"downloads" : [
 
-		"https://github.com/ImageEngine/cortex/archive/10.0.0-a58.tar.gz"
+		"https://github.com/ImageEngine/cortex/archive/10.0.0-a77.tar.gz"
 
 	],
 
+	"url" : "https://github.com/ImageEngine/cortex",
+
 	"license" : "LICENSE",
+
+	"dependencies" : [
+		"Python", "OpenImageIO", "OpenEXR", "Boost", "OpenShadingLanguage",
+		"Blosc", "FreeType", "GLEW", "Appleseed", "TBB", "OpenVDB", "USD", "Six"
+	],
 
 	"environment" : {
 
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
 
 	},
+
+	"requiredEnvironment" : [ "ARNOLD_ROOT", "RMAN_ROOT" ],
 
 	"commands" : [
 
@@ -26,7 +35,8 @@
 			" INSTALL_PYTHON_DIR={buildDir}/python"
 			" INSTALL_ARNOLDOUTPUTDRIVER_NAME={buildDir}/arnold/plugins/ieOutputDriver.so"
 			" INSTALL_IECORE_OPS=''"
-			" PYTHON_CONFIG={buildDir}/bin/python-config"
+			" PYTHON_CONFIG={buildDir}/bin/python{pythonMajorVersion}-config"
+			" PYTHON={buildDir}/bin/python"
 			" BOOST_INCLUDE_PATH={buildDir}/include/boost"
 			" LIBPATH={buildDir}/lib"
 			" BOOST_LIB_SUFFIX=''"
@@ -47,7 +57,23 @@
 			" OPTIONS=''"
 			" SAVE_OPTIONS=gaffer.options",
 
-		"cp -r contrib/scripts/9to10 {buildDir}/python",
+		# Symlink for RenderMan, which uses a different convention to 3Delight.
+		"ln -s -f ieDisplay{sharedLibraryExtension} {buildDir}/renderMan/displayDrivers/d_ieDisplay.so"
+
+	],
+
+	"manifest" : [
+
+		"include/IECore*",
+		"lib/libIECore*{sharedLibraryExtension}",
+		"python/IECore*",
+		"renderMan",
+		"arnold",
+		"appleseedDisplays",
+		"glsl/IECoreGL",
+		"glsl/*.frag",
+		"glsl/*.vert",
+		"doc/cortex/html",
 
 	],
 

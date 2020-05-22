@@ -6,6 +6,8 @@
 
 	],
 
+	"url" : "http://threadingbuildingblocks.org/",
+
 	"license" : "LICENSE",
 
 	"commands" : [
@@ -13,6 +15,13 @@
 		"make -j {jobs} stdver=c++11",
 		"cp -r include/tbb {buildDir}/include",
 		"{installLibsCommand}",
+
+	],
+
+	"manifest" : [
+
+		"include/tbb",
+		"lib/libtbb*{sharedLibraryExtension}*",
 
 	],
 

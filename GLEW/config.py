@@ -6,12 +6,20 @@
 
 	],
 
+	"url" : "http://glew.sourceforge.net",
 	"license" : "LICENSE.txt",
 
 	"commands" : [
 
 		"mkdir -p {buildDir}/lib64/pkgconfig",
 		"make clean && make -j {jobs} install GLEW_DEST={buildDir} LIBDIR={buildDir}/lib",
+
+	],
+
+	"manifest" : [
+
+		"include/GL",
+		"lib/libGLEW*{sharedLibraryExtension}*",
 
 	],
 

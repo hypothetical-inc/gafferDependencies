@@ -6,7 +6,11 @@
 
 	],
 
+	"url" : "https://github.com/imageworks/OpenShadingLanguage",
+
 	"license" : "LICENSE",
+
+	"dependencies" : [ "OpenImageIO", "LLVM" ],
 
 	"environment" : {
 
@@ -31,6 +35,17 @@
 			" ..",
 		"cd gafferBuild && make install -j {jobs} VERBOSE=1",
 		"cp {buildDir}/share/doc/OSL/osl-languagespec.pdf {buildDir}/doc",
+
+	],
+
+	"manifest" : [
+
+		"bin/oslc",
+		"bin/oslinfo",
+		"include/OSL",
+		"lib/libosl*",
+		"doc/osl*",
+		"shaders",
 
 	],
 

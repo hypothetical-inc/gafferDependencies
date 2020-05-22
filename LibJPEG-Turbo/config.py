@@ -6,6 +6,7 @@
 
 	],
 
+	"url" : "https://libjpeg-turbo.org",
 	"license" : "LICENSE.md",
 
 	"commands" : [
@@ -13,6 +14,17 @@
 		"./configure --prefix={buildDir}",
 		"make -j {jobs}",
 		"make install",
+
+	],
+
+	"manifest" : [
+
+		"include/jconfig.h",
+		"include/jerror.h",
+		"include/jmorecfg.h",
+		"include/jpeglib.h",
+
+		"lib/libjpeg*{sharedLibraryExtension}*",
 
 	],
 

@@ -2,67 +2,47 @@
 
 	"downloads" : [
 
-		"https://github.com/AcademySoftwareFoundation/openvdb/archive/v6.0.0.tar.gz"
+		"https://github.com/AcademySoftwareFoundation/openvdb/archive/v7.0.0.tar.gz"
 
 	],
 
+	"url" : "http://www.openvdb.org",
+
 	"license" : "LICENSE",
 
-	"variables" : {
+	"dependencies" : [ "Blosc", "TBB", "OpenEXR", "Python" ],
 
-		"pythonVersion" : "2.7",
+	"environment" : {
+
+		"LD_LIBRARY_PATH" : "{buildDir}/lib",
 
 	},
 
 	"commands" : [
 
-		"cd openvdb && make install"
-			" -j {jobs} "
-			" DESTDIR={buildDir}"
-			" BOOST_INCL_DIR={buildDir}/include"
-			" BOOST_LIB_DIR={buildDir}/lib"
-			" BOOST_PYTHON_LIB_DIR={buildDir}/lib"
-			" BOOST_PYTHON_LIB=-lboost_python"
-			" EXR_INCL_DIR={buildDir}/include"
-			" EXR_LIB_DIR={buildDir}/lib"
-			" TBB_INCL_DIR={buildDir}/include"
-			" TBB_LIB_DIR={buildDir}/lib"
-			" PYTHON_VERSION={pythonVersion}"
-			" PYTHON_INCL_DIR={pythonIncludeDir}"
-			" PYTHON_LIB_DIR={pythonLibDir}"
-			" BLOSC_INCL_DIR={buildDir}/include"
-			" BLOSC_LIB_DIR={buildDir}/lib"
-			" NUMPY_INCL_DIR="
-			" CONCURRENT_MALLOC_LIB="
-			" GLFW_INCL_DIR="
-			" LOG4CPLUS_INCL_DIR="
-			" EPYDOC=",
+		"mkdir build",
+		"cd build && cmake"
+			" -D CMAKE_INSTALL_PREFIX={buildDir}"
+			" -D CMAKE_PREFIX_PATH={buildDir}"
+			# OpenVDB's CMake setup uses GNUInstallDirs, which unhelpfully
+			# puts the libraries in `lib64`. Coax them back.
+			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
+			" -D OPENVDB_BUILD_PYTHON_MODULE=ON"
+			" -D PYOPENVDB_INSTALL_DIRECTORY={buildDir}/python"
+			" .."
+		,
 
-		"mv {buildDir}/python/lib/python{pythonVersion}/pyopenvdb.so {buildDir}/python",
-		"mv {buildDir}/python/include/python{pythonVersion}/pyopenvdb.h {buildDir}/include",
+		"cd build && make VERBOSE=1 -j {jobs} && make install",
 
 	],
 
-	"platform:linux" : {
+	"manifest" : [
 
-		"variables" : {
+		"include/openvdb",
+		"include/pyopenvdb.h",
+		"lib/libopenvdb*{sharedLibraryExtension}*",
+		"python/pyopenvdb*",
 
-			"pythonIncludeDir" : "{buildDir}/include/python{pythonVersion}",
-			"pythonLibDir" : "{buildDir}/lib",
-
-		},
-
-	},
-
-	"platform:osx" : {
-
-		"variables" : {
-
-			"pythonIncludeDir" : "{buildDir}/lib/Python.framework/Headers",
-			"pythonLibDir" : "{buildDir}/lib/Python.framework/Versions/{pythonVersion}",
-
-		},
-
-	},
+	],
 
 }

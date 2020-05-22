@@ -6,6 +6,8 @@
 
 	],
 
+	"url" : "http://www.hdfgroup.org",
+
 	"license" : "COPYING",
 
 	"commands" : [
@@ -14,6 +16,12 @@
 
 		"make -j {jobs}",
 		"make install",
+
+	],
+
+	"manifest" : [
+
+		"lib/libhdf5*{sharedLibraryExtension}*",
 
 	],
 

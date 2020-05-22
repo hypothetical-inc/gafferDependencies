@@ -6,7 +6,11 @@
 
 	],
 
+	"url" : "http://www.libtiff.org",
+
 	"license" : "COPYRIGHT",
+
+	"dependencies" : [ "LibJPEG-Turbo" ],
 
 	"environment" : {
 
@@ -23,6 +27,13 @@
 		"./configure --without-x --prefix={buildDir}",
 		"make -j {jobs}",
 		"make install"
+
+	],
+
+	"manifest" : [
+
+		"include/tiff*",
+		"lib/libtiff*{sharedLibraryExtension}*",
 
 	],
 

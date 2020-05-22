@@ -6,7 +6,9 @@
 
 	],
 
+	"url" : "http://www.freetype.org",
 	"license" : "docs/FTL.TXT",
+	"credit" : "Portions of this software are copyright (c) 2018 The FreeType Project (www.freetype.org). All rights reserved.",
 
 	"environment" : {
 
@@ -20,6 +22,13 @@
 		"./configure --prefix={buildDir} --with-harfbuzz=no",
 		"make -j {jobs}",
 		"make install",
+
+	],
+
+	"manifest" : [
+
+		"include/freetype2",
+		"lib/libfreetype*{sharedLibraryExtension}*",
 
 	],
 

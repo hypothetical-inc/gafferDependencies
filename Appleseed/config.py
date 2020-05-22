@@ -2,11 +2,15 @@
 
 	"downloads" : [
 
-		"https://github.com/appleseedhq/appleseed/archive/1.9.0-beta.tar.gz"
+		"https://github.com/appleseedhq/appleseed/archive/2.1.0-beta.tar.gz"
 
 	],
 
+	"url" : "https://appleseedhq.net",
+
 	"license" : "LICENSE.txt",
+
+	"dependencies" : [ "Python", "Xerces", "OpenShadingLanguage", "OpenImageIO", "Boost", "LibPNG", "OpenEXR", "LZ4" ],
 
 	"environment" : {
 
@@ -23,15 +27,6 @@
 
 	},
 
-	"variables" : {
-
-		# Make sure we pick up the python headers from {buildDir},
-		# rather than any system level headers. We refer to this
-		# variable in "commands" below.
-		"pythonIncludeDir" : "{buildDir}/include/python2.7",
-
-	},
-
 	"commands" : [
 
 		"mkdir build",
@@ -42,7 +37,9 @@
 			" -D WITH_STUDIO=OFF"
 			" -D WITH_TOOLS=OFF"
 			" -D WITH_TESTS=OFF"
-			" -D WITH_PYTHON=ON"
+			" -D WITH_SAMPLES=OFF"
+			" -D WITH_DOXYGEN=OFF"
+			" {pythonArguments}"
 			" -D USE_STATIC_BOOST=OFF"
 			" -D USE_STATIC_OIIO=OFF"
 			" -D USE_STATIC_OSL=OFF"
@@ -56,22 +53,55 @@
 			" -D WARNINGS_AS_ERRORS=OFF"
 			" -D CMAKE_PREFIX_PATH={buildDir}"
 			" -D CMAKE_INSTALL_PREFIX={buildDir}/appleseed"
-			" -D PYTHON_INCLUDE_DIR={pythonIncludeDir}"
+			" -D CMAKE_LIBRARY_PATH={pythonLibDir}"
 			" ..",
 
 		"cd build && make install -j {jobs} VERBOSE=1"
 
 	],
 
-	"platform:osx" : {
+	"variant:Python:2" : {
 
 		"variables" : {
 
-			# Python headers have a different location on OSX.
-			"pythonIncludeDir" : "{buildDir}/lib/Python.framework/Headers",
+			"pythonArguments" :
+				" -D WITH_PYTHON2_BINDINGS=ON"
+				" -D WITH_PYTHON3_BINDINGS=OFF"
+				" -D PYTHON_INCLUDE_DIR={pythonIncludeDir}"
+				" -D Boost_PYTHON_LIBRARY={buildDir}/lib/libboost_python{pythonMajorVersion}{pythonMinorVersion}{sharedLibraryExtension}"
+			,
 
 		},
 
 	},
+
+	"variant:Python:3" : {
+
+		"variables" : {
+
+			"pythonArguments" :
+				" -D WITH_PYTHON2_BINDINGS=OFF"
+				" -D WITH_PYTHON3_BINDINGS=ON"
+				" -D PYTHON3_INCLUDE_DIR={pythonIncludeDir}"
+				" -D PYTHON_MAJOR_VERSION={pythonMajorVersion}"
+				" -D PYTHON_MINOR_VERSION={pythonMinorVersion}"
+				" -D Boost_PYTHON3_LIBRARY={buildDir}/lib/libboost_python{pythonMajorVersion}{pythonMinorVersion}{sharedLibraryExtension}"
+			,
+
+		},
+
+	},
+
+	"manifest" : [
+
+		"appleseed/bin/appleseed.cli",
+		"appleseed/include",
+		"appleseed/lib",
+		"appleseed/samples",
+		"appleseed/schemas",
+		"appleseed/settings",
+		"appleseed/shaders",
+
+	],
 
 }

@@ -6,7 +6,11 @@
 
 	],
 
+	"url" : "http://www.alembic.io",
+
 	"license" : "LICENSE.txt",
+
+	"dependencies" : [ "Python", "OpenEXR", "Boost", "HDF5" ],
 
 	"commands" : [
 
@@ -20,8 +24,6 @@
 			" -D HDF5_ROOT={buildDir}"
 			" -D ALEMBIC_PYILMBASE_INCLUDE_DIRECTORY={buildDir}/include/OpenEXR"
 			" -D USE_HDF5=TRUE"
-			" -D USE_PYILMBASE=TRUE"
-			" -D USE_PYALEMBIC=TRUE"
 			" -D USE_ARNOLD=FALSE"
 			" -D USE_PRMAN=FALSE"
 			" -D USE_MAYA=FALSE"
@@ -31,8 +33,22 @@
 		"make VERBOSE=1 -j {jobs}",
 		"make install",
 
-		"mkdir -p {buildDir}/python",
-		"mv {buildDir}/lib/python*/site-packages/alembic* {buildDir}/python",
+	],
+
+	"manifest" : [
+
+		"bin/abcconvert",
+		"bin/abcecho",
+		"bin/abcechobounds",
+		"bin/abcls",
+		"bin/abcstitcher",
+		"bin/abctree",
+
+		"include/Alembic",
+
+		"lib/libAlembic*",
+
+		"python/alembic*",
 
 	],
 

@@ -7,7 +7,11 @@
 
 	],
 
+	"url" : "http://opencolorio.org",
+
 	"license" : "LICENSE",
+
+	"dependencies" : [ "Python" ],
 
 	"environment" : {
 
@@ -40,6 +44,15 @@
 		"mkdir -p {buildDir}/openColorIO",
 		"cp ../OpenColorIO-Configs-1.0_r2/nuke-default/config.ocio {buildDir}/openColorIO",
 		"cp -r ../OpenColorIO-Configs-1.0_r2/nuke-default/luts {buildDir}/openColorIO",
+
+	],
+
+	"manifest" : [
+
+		"include/OpenColorIO",
+		"lib/libOpenColorIO*{sharedLibraryExtension}*",
+		"openColorIO",
+		"python/PyOpenColorIO*",
 
 	],
 

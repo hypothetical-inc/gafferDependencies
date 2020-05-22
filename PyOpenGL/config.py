@@ -2,23 +2,51 @@
 
 	"downloads" : [
 
-		"https://files.pythonhosted.org/packages/a2/3f/986cf2693584a8738985a63d62aee32f9317e9895ab3c224cbf17d5ca371/PyOpenGL-3.0.2.tar.gz"
+		"https://files.pythonhosted.org/packages/d7/8a/5db9096aa6506e405309c400bd0feb41997689cbba30683479c30dba6355/PyOpenGL-3.1.4.tar.gz"
 
 	],
 
+	"url" : "http://pyopengl.sourceforge.net",
+
 	"license" : "license.txt",
+
+	"dependencies" : [ "Python" ],
 
 	"environment" : {
 
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
 		"DYLD_FRAMEWORK_PATH" : "{buildDir}/lib",
+		"PYTHONPATH" : "{buildDir}/python",
 
 	},
 
 	"commands" : [
 
-		"{buildDir}/bin/python setup.py install --prefix {buildDir} --install-lib {buildDir}/python",
+		"{buildDir}/bin/python setup.py install {extraArgs} --root / --prefix {buildDir} --install-lib {buildDir}/python",
 
 	],
+
+	"manifest" : [
+
+		"python/OpenGL",
+
+	],
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
+
+	"variant:Python:3" : {
+
+
+		"variables" : {
+
+			"extraArgs" : "--single-version-externally-managed"
+
+		},
+
+	},
 
 }
