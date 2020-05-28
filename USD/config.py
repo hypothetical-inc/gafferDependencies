@@ -104,13 +104,13 @@
 				" -D Boost_NO_SYSTEM_PATHS=TRUE"
 				" -D PXR_BUILD_ALEMBIC_PLUGIN=TRUE"
 				" -D PXR_ENABLE_HDF5_SUPPORT=FALSE"
-				" -D ALEMBIC_DIR={buildDir}/lib"
-				" -D OPENEXR_LOCATION={buildDir}/lib"
-				# Disable Python support until USD supports Python 3.
-				" -D PXR_ENABLE_PYTHON_SUPPORT=FALSE"
+				" -D ALEMBIC_DIR={buildDir}\\lib"
+				" -D OPENEXR_LOCATION={buildDir}\\lib"
 				" ..",
 
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
+
+			"xcopy /s /e /h /y /i {buildDir}\\lib\\python\\pxr {buildDir}\\python\\pxr",
 
 		],
 
