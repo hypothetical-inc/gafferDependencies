@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/PixarAnimationStudios/USD/archive/v20.02.tar.gz"
+		"https://github.com/PixarAnimationStudios/USD/archive/v20.08.tar.gz"
 
 	],
 
@@ -10,11 +10,18 @@
 
 	"license" : "LICENSE.txt",
 
-	"dependencies" : [ "Boost", "Python", "OpenImageIO", "TBB", "Alembic" ],
+	"dependencies" : [ "Boost", "Python", "OpenImageIO", "TBB", "Alembic", "OpenSubdiv", "PyOpenGL", "GLEW", "PySide" ],
 
 	"environment" : {
 
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
+		"PYTHONPATH" : "{buildDir}/python",
+
+	},
+
+	"variables" : {
+
+		"extraArguments" : "",
 
 	},
 
@@ -25,50 +32,137 @@
 			" -D CMAKE_PREFIX_PATH={buildDir}"
 			" -D Boost_NO_SYSTEM_PATHS=TRUE"
 			" -D Boost_NO_BOOST_CMAKE=TRUE"
-			" -D PXR_BUILD_IMAGING=FALSE"
+			" -D PXR_ENABLE_PTEX_SUPPORT=FALSE"
 			" -D PXR_BUILD_TESTS=FALSE"
 			" -D PXR_BUILD_ALEMBIC_PLUGIN=TRUE"
 			" -D PXR_ENABLE_HDF5_SUPPORT=FALSE"
+			" -D PXR_PYTHON_SHEBANG='/usr/bin/env python'"
 			" -D ALEMBIC_DIR={buildDir}/lib"
 			" -D OPENEXR_LOCATION={buildDir}/lib"
-			# Disable Python support until USD supports Python 3.
-			" -D PXR_ENABLE_PYTHON_SUPPORT=FALSE"
 			# Needed to prevent CMake picking up system python libraries on Mac.
 			" -D CMAKE_FRAMEWORK_PATH={pythonLibDir}"
+			" {extraArguments}"
 			" ."
 		,
 
 		"make VERBOSE=1 -j {jobs}",
 		"make install",
 
+		"rm -rf {buildDir}/python/pxr",
+		"mv {buildDir}/lib/python/pxr {buildDir}/python",
+
 	],
 
 	"manifest" : [
 
-		"bin/usd*",
-		"bin/sdfdump",
+		"bin/usd*{executableExtension}",
+		"bin/sdfdump{executableExtension}",
 
 		"include/pxr",
 
-		"lib/libtrace{sharedLibraryExtension}",
-		"lib/libarch{sharedLibraryExtension}",
-		"lib/libtf{sharedLibraryExtension}",
-		"lib/libjs{sharedLibraryExtension}",
-		"lib/libwork{sharedLibraryExtension}",
-		"lib/libplug{sharedLibraryExtension}",
-		"lib/libkind{sharedLibraryExtension}",
-		"lib/libgf{sharedLibraryExtension}",
-		"lib/libvt{sharedLibraryExtension}",
-		"lib/libar{sharedLibraryExtension}",
-		"lib/libsdf{sharedLibraryExtension}",
-		"lib/libpcp{sharedLibraryExtension}",
-		"lib/libusd*{sharedLibraryExtension}",
+		# lib prefix is accurate for all platforms
+		"lib/{libraryPrefix}trace{sharedLibraryExtension}",
+		"lib/{libraryPrefix}arch{sharedLibraryExtension}",
+		"lib/{libraryPrefix}tf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}js{sharedLibraryExtension}",
+		"lib/{libraryPrefix}work{sharedLibraryExtension}",
+		"lib/{libraryPrefix}plug{sharedLibraryExtension}",
+		"lib/{libraryPrefix}kind{sharedLibraryExtension}",
+		"lib/{libraryPrefix}gf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}vt{sharedLibraryExtension}",
+		"lib/{libraryPrefix}ar{sharedLibraryExtension}",
+		"lib/{libraryPrefix}sdf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}pcp{sharedLibraryExtension}",
+		"lib/{libraryPrefix}usd*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}ndr{sharedLibraryExtension}",
+		"lib/{libraryPrefix}sdr{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hd{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hdx{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hdSt{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hio{sharedLibraryExtension}",
+		"lib/{libraryPrefix}glf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}garch{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hgi{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hgiInterop{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hgiGL{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}cameraUtil{sharedLibraryExtension}",
+		"lib/{libraryPrefix}pxOsd{sharedLibraryExtension}",
+
+		"lib/{libraryPrefix}trace{staticLibraryExtension}",
+		"lib/{libraryPrefix}arch{staticLibraryExtension}",
+		"lib/{libraryPrefix}tf{staticLibraryExtension}",
+		"lib/{libraryPrefix}js{staticLibraryExtension}",
+		"lib/{libraryPrefix}work{staticLibraryExtension}",
+		"lib/{libraryPrefix}plug{staticLibraryExtension}",
+		"lib/{libraryPrefix}kind{staticLibraryExtension}",
+		"lib/{libraryPrefix}gf{staticLibraryExtension}",
+		"lib/{libraryPrefix}vt{staticLibraryExtension}",
+		"lib/{libraryPrefix}ar{staticLibraryExtension}",
+		"lib/{libraryPrefix}sdf{staticLibraryExtension}",
+		"lib/{libraryPrefix}pcp{staticLibraryExtension}",
+		"lib/{libraryPrefix}usd*{staticLibraryExtension}",
+		"lib/{libraryPrefix}ndr{staticLibraryExtension}",
+		"lib/{libraryPrefix}sdr{staticLibraryExtension}",
+		"lib/{libraryPrefix}hd{staticLibraryExtension}",
+		"lib/{libraryPrefix}hdx{staticLibraryExtension}",
+		"lib/{libraryPrefix}hdSt{staticLibraryExtension}",
+		"lib/{libraryPrefix}hio{staticLibraryExtension}",
+		"lib/{libraryPrefix}glf{staticLibraryExtension}",
+		"lib/{libraryPrefix}garch{staticLibraryExtension}",
+		"lib/{libraryPrefix}hgi{staticLibraryExtension}",
+		"lib/{libraryPrefix}hgiInterop{staticLibraryExtension}",
+		"lib/{libraryPrefix}hgiGL{staticLibraryExtension}",
+		"lib/{libraryPrefix}hf{staticLibraryExtension}",
+		"lib/{libraryPrefix}cameraUtil{staticLibraryExtension}",
+		"lib/{libraryPrefix}pxOsd{staticLibraryExtension}",
+
 		"lib/usd",
 
 		"python/pxr",
 
+		"plugin/usd",
 		"share/usd",
 
 	],
+
+	"variant:Python:3" : {
+
+		"variables" : {
+
+			"extraArguments" : "-D PXR_USE_PYTHON_3=TRUE",
+
+		},
+		
+	},
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			"mkdir gafferBuild",
+			"cd gafferBuild && "
+				" cmake"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_PREFIX_PATH={buildDir}"
+				" -D Boost_NO_BOOST_CMAKE=TRUE"
+				" -D PXR_BUILD_IMAGING=FALSE"
+				" -D PXR_BUILD_TESTS=FALSE"
+				" -D Boost_NO_SYSTEM_PATHS=TRUE"
+				" -D PXR_BUILD_ALEMBIC_PLUGIN=TRUE"
+				" -D PXR_ENABLE_HDF5_SUPPORT=FALSE"
+				" -D ALEMBIC_DIR={buildDir}\\lib"
+				" -D OPENEXR_LOCATION={buildDir}\\lib"
+				" ..",
+
+			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
+
+			"xcopy /s /e /h /y /i {buildDir}\\lib\\python\\pxr {buildDir}\\python\\pxr",
+
+		],
+
+	},
 
 }

@@ -21,11 +21,21 @@
 
 	"commands" : [
 
-		# Installs `setuptools`, which is required by
-		# the next command.
-		"python -m ensurepip --default-pip",
 		"python setup.py install",
 
 	],
+
+	"manifest" : [
+
+		"lib/python{pythonVersion}/site-packages/subprocess32.py",
+		"lib/python{pythonVersion}/site-packages/_posixsubprocess.so",
+
+	],
+
+	"platform:windows" : {
+
+		"enabled" : False,
+
+	},
 
 }

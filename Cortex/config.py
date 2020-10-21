@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/ImageEngine/cortex/archive/10.0.0-a77.tar.gz"
+		"https://github.com/ImageEngine/cortex/archive/10.0.0-a79.tar.gz"
 
 	],
 
@@ -28,6 +28,7 @@
 		"scons install installDoc"
 			" -j {jobs}"
 			" CXX=`which g++`"
+			" CXXSTD={c++Standard}"
 			" INSTALL_PREFIX={buildDir}"
 			" INSTALL_DOC_DIR={buildDir}/doc/cortex"
 			" INSTALL_RMANPROCEDURAL_NAME={buildDir}/renderMan/procedurals/iePython"
@@ -65,7 +66,8 @@
 	"manifest" : [
 
 		"include/IECore*",
-		"lib/libIECore*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}IECore*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}IECore*.lib",
 		"python/IECore*",
 		"renderMan",
 		"arnold",
@@ -76,5 +78,54 @@
 		"doc/cortex/html",
 
 	],
+
+    "platform:windows" : {
+
+		"enabled" : False,
+
+		"commands" : [
+
+			"scons install installDoc --debug=findlibs"
+				" -j 8"
+				" INSTALL_PREFIX={buildDir}"
+				" INSTALL_DOC_DIR={buildDir}\\doc\\cortex"
+				" INSTALL_RMANPROCEDURAL_NAME={buildDir}\\renderMan\\procedurals\\iePython"
+				" INSTALL_RMANDISPLAY_NAME={buildDir}\\renderMan\\displayDrivers\\ieDisplay"
+				" INSTALL_PYTHON_DIR={buildDir}\\python"
+				" INSTALL_ARNOLDOUTPUTDRIVER_NAME={buildDir}\\arnold\\plugins\\ieOutputDriver.dll"
+				" BUILD_TYPE=RELWITHDEBINFO"
+				" PYTHON={buildDir}\\bin\\python.exe"
+				" PYTHON_INCLUDE_PATH={buildDir}\\include"
+				" PYTHON_LINK_FLAGS="
+				" BOOST_INCLUDE_PATH={buildDir}\\include\\boost-1_68"
+				" BOOST_LIB_PATH={buildDir}\\lib"
+				" BOOST_LIB_SUFFIX=-vc141-mt-x64-1_68"
+				" OPENEXR_INCLUDE_PATH={buildDir}\\include"
+				" OPENEXR_LIB_SUFFIX="
+				" OIIO_INCLUDE_PATH={buildDir}\\include\\OpenImageIO"
+				" OIIO_LIB_PATH={buildDir}\\lib"
+				" OSL_INCLUDE_PATH={buildDir}\\include"
+				" BLOSC_INCLUDE_PATH={buildDir}\\include"
+				" FREETYPE_INCLUDE_PATH={buildDir}\\include\\freetype2"
+				" FREETYPE_LIB_PATH={buildDir}\\lib"
+				" WITH_GL=1"
+				" GLEW_INCLUDE_PATH={buildDir}\\include"
+				" GLEW_LIB_SUFFIX=32"
+				" TBB_INCLUDE_PATH={buildDir}\\include"
+				" APPLESEED_ROOT={buildDir}\\appleseed"
+				" APPLESEED_INCLUDE_PATH={buildDir}\\appleseed\\include"
+				" APPLESEED_LIB_PATH={buildDir}\\appleseed\\lib"
+				" ARNOLD_ROOT=%ARNOLD_ROOT%"
+				" RMAN_ROOT=%RMAN_ROOT"
+				" USD_INCLUDE_PATH={buildDir}\\include"
+				" USD_LIB_PATH={buildDir}\\lib"
+				" PYTHONPATH={buildDir}\\python"
+				" OPTIONS="
+				" WARNINGS_AS_ERRORS=0"
+				" SAVE_OPTIONS=cortex.options"
+			
+		]
+
+	},
 
 }
