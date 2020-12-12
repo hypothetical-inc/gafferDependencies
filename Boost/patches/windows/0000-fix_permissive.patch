@@ -1,0 +1,56 @@
+From 0d0cd711a764a3b32d2cd19a1049eb9f36b4fd06 Mon Sep 17 00:00:00 2001
+From: Owens <owe043@csiro.au>
+Date: Fri, 17 Aug 2018 06:06:03 +1000
+Subject: [PATCH] Enable forward declaration of unwind_type() in msvc14.15 and
+ later.
+
+Name lookup in msvc has changed between 14.14 and 14.15 making it consistent with other compilers. Forward declaration of unwind_type() is now required as it is for other compilers.
+
+Resolves compilation errors identified in:
+
+https://github.com/boostorg/python/issues/228
+---
+ include/boost/python/detail/unwind_type.hpp | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/include/boost/python/detail/unwind_type.hpp b/include/boost/python/detail/unwind_type.hpp
+index f6cdab64f..b81bf7c89 100644
+--- a/boost/python/detail/unwind_type.hpp
++++ b/boost/python/detail/unwind_type.hpp
+@@ -11,13 +11,15 @@
+ 
+ namespace boost { namespace python { namespace detail {
+ 
+-#ifndef _MSC_VER //if forward declared, msvc6.5 does not recognize them as inline
+-// forward declaration, required (at least) by Tru64 cxx V6.5-042
++#if (!defined(_MSC_VER) || _MSC_VER >= 1915)
++// If forward declared, msvc6.5 does not recognize them as inline.
++// However, as of msvc14.15 (_MSC_VER 1915/Visual Studio 15.8.0) name lookup is now consistent with other compilers.
++// forward declaration, required (at least) by Tru64 cxx V6.5-042 and msvc14.15
+ template <class Generator, class U>
+ inline typename Generator::result_type
+ unwind_type(U const& p, Generator* = 0);
+ 
+-// forward declaration, required (at least) by Tru64 cxx V6.5-042
++// forward declaration, required (at least) by Tru64 cxx V6.5-042 and msvc14.15
+ template <class Generator, class U>
+ inline typename Generator::result_type
+ unwind_type(boost::type<U>*p = 0, Generator* = 0);
+@@ -83,7 +85,7 @@ struct unwind_helper<false>
+ 
+ template <class Generator, class U>
+ inline typename Generator::result_type
+-#ifndef _MSC_VER
++#if (!defined(_MSC_VER) || _MSC_VER >= 1915)
+ unwind_type(U const& p, Generator*)
+ #else
+ unwind_type(U const& p, Generator* = 0)
+@@ -148,7 +150,7 @@ struct unwind_helper2<reference_to_pointer_>
+ // why bother?
+ template <class Generator, class U>
+ inline typename Generator::result_type
+-#ifndef _MSC_VER
++#if (!defined(_MSC_VER) || _MSC_VER >= 1915)
+ unwind_type(boost::type<U>*, Generator*)
+ #else
+ unwind_type(boost::type<U>*p =0, Generator* =0)

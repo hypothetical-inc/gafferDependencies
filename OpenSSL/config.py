@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://www.openssl.org/source/old/1.0.2/openssl-1.0.2h.tar.gz",
+		"https://www.openssl.org/source/openssl-1.1.1h.tar.gz",
 
 	],
 
@@ -18,6 +18,15 @@
 
 	],
 
+	"manifest" : [
+
+		# The "lib" prefix is correct for all platforms
+
+		"lib/libssl*{sharedLibraryExtension}*",
+		"lib/libcrypto*{sharedLibraryExtension}*",
+
+	],
+
 	"platform:osx" : {
 
 		"environment" : {
@@ -25,6 +34,18 @@
 			"KERNEL_BITS" : "64",
 
 		},
+
+	},
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			"perl Configure VC-WIN64A --prefix={buildDir} --openssldir={buildDir}",
+			"nmake",
+			"nmake install",
+
+		],
 
 	},
 

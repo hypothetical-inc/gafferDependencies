@@ -1,0 +1,11 @@
+--- a/./ez_setup.py	2020-05-14 15:33:24.322077700 -0400
++++ b/./ez_setup.py	2020-05-14 15:32:37.667455100 -0400
+@@ -222,7 +222,7 @@
+     ps_cmd = (
+         "[System.Net.WebRequest]::DefaultWebProxy.Credentials = "
+         "[System.Net.CredentialCache]::DefaultCredentials; "
+-        "(new-object System.Net.WebClient).DownloadFile({}, {})".format(
++        "(new-object System.Net.WebClient).DownloadFile(\"{}\", \"{}\")".format(
+             url, target))
+ #    )
+     cmd = [
