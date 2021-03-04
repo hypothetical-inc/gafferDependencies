@@ -7,7 +7,6 @@ import hashlib
 import json
 import os
 import operator
-import md5
 import multiprocessing
 import subprocess
 import shutil
@@ -15,7 +14,7 @@ import sys
 import tarfile
 import zipfile
 
-__version = "2.0.0"
+__version = "3.0.0"
 
 """
 Config file format
@@ -101,7 +100,7 @@ def __decompress( archive ) :
 		# the `tarfile` module for this too.
 		command = "tar -xvf {archive}".format( archive=archive )
 		sys.stderr.write( command + "\n" )
-		files = subprocess.check_output( command, stderr=subprocess.STDOUT, shell = True )
+		files = subprocess.check_output( command, stderr=subprocess.STDOUT, shell = True, universal_newlines = True )
 		files = [ f for f in files.split( "\n" ) if f ]
 		files = [ f[2:] if f.startswith( "x " ) else f for f in files ]
 	else :
@@ -144,7 +143,7 @@ def __applyConfigOverrides( config, key ) :
 
 def __substitute( config, variables, forDigest = False ) :
 
-	if not forDigest :
+	if forDigest :
 		# These shouldn't affect the output of the build, so
 		# hold them constant when computing a digest.
 		variables = variables.copy()
@@ -170,22 +169,26 @@ def __substitute( config, variables, forDigest = False ) :
 
 	return substituteWalk( config )
 
+def __appendHash( hash, value ) :
+
+	hash.update( str( value ).encode( "utf-8" ) )
+
 def __updateDigest( project, config ) :
 
 	# This needs to account for everything that
 	# `__buildProject()` is sensitive to.
 
-	config["digest"].update( str( config["downloads"] ) )
-	config["digest"].update( str( config.get( "license" ) ) )
-	config["digest"].update( str( config.get( "environment" ) ) )
-	config["digest"].update( str( config.get( "commands" ) ) )
-	config["digest"].update( str( config.get( "symbolicLinks" ) ) )
+	__appendHash( config["digest"], config["downloads"] )
+	__appendHash( config["digest"], config.get( "license" ) )
+	__appendHash( config["digest"], config.get( "environment" ) )
+	__appendHash( config["digest"], config.get( "commands" ) )
+	__appendHash( config["digest"], config.get( "symbolicLinks" ) )
 	for e in config.get( "requiredEnvironment", [] ) :
-		config["digest"].update( os.environ.get( e, "" ) )
+		__appendHash( config["digest"], os.environ.get( e, "" ) )
 
 	for patch in glob.glob( "{}/patches/*.patch".format( project ) ) :
 		with open( patch ) as f :
-			config["digest"].update( f.read() )
+			__appendHash( config["digest"], f.read() )
 
 def __loadConfigs( variables, variants ) :
 
@@ -220,7 +223,7 @@ def __loadConfigs( variables, variants ) :
 		projectVariables = variables.copy()
 		for dependency in projectConfig.get( "dependencies", [] ) :
 			walk( dependency, configs )
-			projectConfig["digest"].update( configs[dependency]["digest"].hexdigest() )
+			__appendHash( projectConfig["digest"], configs[dependency]["digest"].hexdigest() )
 			projectVariables.update( configs[dependency].get( "publicVariables", {} ) )
 
 		# Apply substitutions and update digest.
@@ -424,6 +427,13 @@ parser.add_argument(
 	help = "The filename of the tarball package to create.",
 )
 
+parser.add_argument(
+	"--jobs",
+	type = int,
+	default = multiprocessing.cpu_count(),
+	help = "The number of build jobs to run in parallel. Defaults to cpu_count."
+)
+
 for project in __projects() :
 
 	config = __loadJSON( project )
@@ -448,11 +458,12 @@ for key, value in vars( args ).items() :
 
 variables = {
 	"buildDir" : os.path.abspath( args.buildDir ),
-	"jobs" : multiprocessing.cpu_count(),
+	"jobs" : args.jobs,
 	"path" : os.environ["PATH"],
 	"version" : __version,
 	"platform" : "osx" if sys.platform == "darwin" else "linux",
 	"sharedLibraryExtension" : ".dylib" if sys.platform == "darwin" else ".so",
+	"c++Standard" : "14",
 	"variants" : "".join( "-{}{}".format( key, variants[key] ) for key in sorted( variants.keys() ) ),
 }
 

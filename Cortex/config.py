@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/ImageEngine/cortex/archive/10.0.0-a77.tar.gz"
+		"https://github.com/ImageEngine/cortex/archive/10.1.4.0.tar.gz"
 
 	],
 
@@ -28,6 +28,7 @@
 		"scons install installDoc"
 			" -j {jobs}"
 			" CXX=`which g++`"
+			" CXXSTD=c++{c++Standard}"
 			" INSTALL_PREFIX={buildDir}"
 			" INSTALL_DOC_DIR={buildDir}/doc/cortex"
 			" INSTALL_RMANPROCEDURAL_NAME={buildDir}/renderMan/procedurals/iePython"
