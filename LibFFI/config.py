@@ -19,8 +19,31 @@
 
 	"manifest" : [
 
-		"lib/libffi*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}ffi*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}ffi*{staticLibraryExtension}*",
 
 	],
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			"mkdir gafferBuild",
+			"cd gafferBuild && "
+				" cmake"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_PREFIX_PATH={buildDir}"
+				" ..",
+
+			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
+			"mkdir lib",
+			"copy gafferBuild\\ffi.dll lib\\ffi.dll",
+			"copy gafferBuild\\ffi.lib lib\\ffi.lib",
+
+		],
+
+	},
 
 }

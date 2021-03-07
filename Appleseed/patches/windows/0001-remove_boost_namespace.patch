@@ -1,0 +1,10 @@
+--- a/src/appleseed/renderer/meta/tests/test_tracer.cpp	2020-05-14 18:34:13.413540600 -0400
++++ b/src/appleseed/renderer/meta/tests/test_tracer.cpp	2020-05-14 18:32:10.040808300 -0400
+@@ -83,7 +83,6 @@
+ 
+ using namespace foundation;
+ using namespace renderer;
+-using namespace boost;
+ using namespace std;
+ 
+ TEST_SUITE(Renderer_Kernel_Lighting_Tracer)

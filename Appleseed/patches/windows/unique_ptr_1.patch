@@ -1,0 +1,11 @@
+--- ./src/appleseed/foundation/image/genericimagefilewriter.cpp
++++ ./src/appleseed/foundation/image/genericimagefilewriter.cpp
+@@ -79,7 +79,7 @@
+ {
+     // Destroy the ImageOutput stucture.
+     if (m_writer != nullptr)
+-        OIIO::ImageOutput::destroy(m_writer);
++        OIIO::ImageOutput::destroy(m_writer.release());
+ 
+     delete impl;
+ }

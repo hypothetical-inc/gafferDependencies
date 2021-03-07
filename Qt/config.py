@@ -48,14 +48,14 @@
 
 	"manifest" : [
 
-		"bin/moc",
-		"bin/qmake",
-		"bin/rcc",
-		"bin/uic",
+		"bin/moc{executableExtension}",
+		"bin/qmake{executableExtension}",
+		"bin/rcc{executableExtension}",
+		"bin/uic{executableExtension}",
 
 		"include/Qt*",
 
-		"lib/libQt*",
+		"lib/{libraryPrefix}Qt*",
 		"lib/Qt*.framework",
 
 		"mkspecs",
@@ -89,5 +89,60 @@
 		},
 
 	},
+
+	"platform:windows" : {
+
+		"environment" : {
+
+			"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-everywhere-src-5.12.10\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
+
+		},
+
+		"commands" : [
+
+			"copy {buildDir}\\lib\\zlib.lib {buildDir}\\lib\\zdll.lib",
+			"copy {buildDir}\\lib\\libpng16.lib {buildDir}\\lib\\libpng.lib",
+			"copy {buildDir}\\lib\\jpeg.lib {buildDir}\\lib\\libjpeg.lib",
+			# help Qt find the right zlib.dll
+			"copy {buildDir}\\bin\\zlib.dll %ROOT_DIR%\\Qt\\working\\qt-everywhere-src-5.12.10\\qtbase\\bin\\zlib.dll",
+			"call configure.bat"
+				" -prefix {buildDir}"
+				" -plugindir {buildDir}\\qt\\plugins"
+				" -release"
+				" -opensource"
+				" -confirm-license"
+				" -opengl desktop"
+				" -no-angle"
+				" -no-rpath"
+				" -no-dbus"
+				" -skip qt3d"
+				" -skip qtcharts"
+				" -skip qtconnectivity"
+				" -skip qtdatavis3d"
+				" -skip qtdeclarative"
+				" -skip qtgamepad"
+				" -skip qtnetworkauth"
+				" -skip qtpurchasing"
+				" -skip qtremoteobjects"
+				" -skip qtsensors"
+				" -skip qtserialbus"
+				" -skip qtserialport"
+				" -skip qtspeech"
+				" -skip qtwebchannel"
+				" -skip qtwebengine"
+				" -no-libudev"
+				" -no-icu"
+				" -qt-pcre"
+				" -nomake examples"
+				" -nomake tests"
+				" -system-zlib"
+				" -I {buildDir}\\include"
+				" -L {buildDir}\\lib",
+			"jom.exe",
+			"jom.exe install",
+			"copy {buildDir}\\bin\\{libraryPrefix}Qt* {buildDir}\\lib\\",
+
+		]
+	}
 
 }

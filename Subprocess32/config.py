@@ -25,4 +25,17 @@
 
 	],
 
+	"manifest" : [
+
+		"lib/python{pythonVersion}/site-packages/subprocess32.py",
+		"lib/python{pythonVersion}/site-packages/_posixsubprocess.so",
+
+	],
+
+	"platform:windows" : {
+
+		"enabled" : False,
+
+	},
+
 }

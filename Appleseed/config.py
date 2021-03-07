@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/appleseedhq/appleseed/archive/2.1.0-beta.tar.gz"
+		"https://github.com/appleseedhq/appleseed/archive/2.0.5-beta.tar.gz"
 
 	],
 
@@ -55,7 +55,7 @@
 			" -D CMAKE_INSTALL_PREFIX={buildDir}/appleseed"
 			" -D CMAKE_LIBRARY_PATH={pythonLibDir}"
 			" ..",
-
+			
 		"cd build && make install -j {jobs} VERBOSE=1"
 
 	],
@@ -103,5 +103,72 @@
 		"appleseed/shaders",
 
 	],
+	"platform:windows" : {
+
+		"enabled" : False,
+
+		"variables" : {
+			"cmakeGenerator" : "\"Visual Studio 15 2017 Win64\"",
+		},
+
+		"environment" : {
+
+			"PATH" : "%PATH%;{buildDir}\\lib;{buildDir}\\bin",
+
+		},
+
+		"commands" : [
+			"if not exist \"build\" mkdir build",
+			"cd build &&"
+				" cmake"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_VERBOSE_MAKEFILE:BOOL=ON"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -D PYTHON_LIBRARY={pythonLibDir}\\python{pythonMajorVersion}{pythonMinorVersion}.lib"
+				" -D PYTHON_INCLUDE_DIR={pythonIncludeDir}"
+				" -D WITH_OSL=ON"
+				" -D WITH_CLI=ON"
+				" -D WITH_STUDIO=OFF"
+				" -D WITH_TOOLS=OFF"
+				" -D WITH_PYTHON=ON"
+				" -D WITH_PYTHON2_BINDINGS=ON"
+				" -D WITH_PYTHON3_BINDINGS=OFF"
+				" -D PYTHON_MAJOR_VERSION=2"
+				" -D WITH_OSL=ON"
+				" -D WITH_TESTS=OFF"
+				" -D USE_STATIC_BOOST=OFF"
+				" -D USE_STATIC_OIIO=OFF"
+				" -D USE_STATIC_EXR=OFF"
+				" -D USE_STATIC_OSL=OFF"
+				" -D USE_EXTERNAL_ZLIB=ON"
+				" -D USE_EXTERNAL_EXR=ON"
+				" -D USE_EXTERNAL_PNG=ON"
+				" -D USE_EXTERNAL_XERCES=ON"
+				" -D USE_EXTERNAL_OSL=ON"
+				" -D USE_EXTERNAL_OIIO=ON"
+				" -D USE_EXTERNAL_ALEMBIC=ON"
+				" -D WARNINGS_AS_ERRORS=OFF"
+				" -D USE_SSE=ON"
+				" -D CMAKE_PREFIX_PATH={buildDir}"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}\\appleseed"
+				" -D BOOST_ROOT={buildDir}"
+				" -D IMATH_INCLUDE_DIRS={buildDir}\\include"
+				" -D IMATH_HALF_LIBRARY={buildDir}\\lib\\Half.lib"
+				" -D IMATH_IEX_LIBRARY={buildDir}\\lib\\Iex.lib"
+				" -D IMATH_MATH_LIBRARY={buildDir}\\lib\\Imath.lib"
+				" -D OPENEXR_INCLUDE_DIRS={buildDir}\\include"
+				" -D OPENEXR_IMF_LIBRARY={buildDir}\\lib\\IlmImf.lib"
+				" -D OPENEXR_THREADS_LIBRARY={buildDir}\\lib\\IlmThread.lib"
+				" -D XERCES_LIBRARY={buildDir}\\lib\\xerces-c_3.lib"
+				" -D OSL_INCLUDE_DIR={buildDir}\\include"
+				" -D LLVM_LIBS_DIR={buildDir}\\lib"
+				" OSL_EXEC_LIBRARY={buildDir}\\lib\\oslexec.lib"
+				" OSL_COMP_LIBRARY={buildDir}\\lib\\oslcomp.lib"
+				" OSL_QUERY_LIBRARY={buildDir}\\lib\\oslquery.lib"
+				" ..",
+			"cd build && cmake --build . --config {cmakeBuildType} --target install",
+		]
+
+	}
 
 }

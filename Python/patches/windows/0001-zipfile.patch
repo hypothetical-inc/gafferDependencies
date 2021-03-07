@@ -1,0 +1,14 @@
+--- ./Lib/zipfile.py
++++ ./Lib/zipfile.py
+@@ -176,6 +176,11 @@
+     if diskno != 0 or disks != 1:
+         raise BadZipfile("zipfiles that span multiple disks are not supported")
+ 
++    # Some Windows versions have a bug where seeking from the of the file after a read
++    # uses the current position rather than the EOF location. Seeking the beginning of
++    # the file first seems to fix this
++    fpin.seek(0)
++
+     # Assume no 'zip64 extensible data'
+     fpin.seek(offset - sizeEndCentDir64Locator - sizeEndCentDir64, 2)
+     data = fpin.read(sizeEndCentDir64)

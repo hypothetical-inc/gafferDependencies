@@ -12,6 +12,12 @@
 
 	"dependencies" : [ "Python" ],
 
+	"variables" : {
+
+		"boostVersionSuffix" : "",
+
+	},
+
 	"environment" : {
 
 		# Without this, boost build will still pick up the system python framework,
@@ -34,10 +40,37 @@
 
 	"manifest" : [
 
-		"include/boost",
-		"lib/libboost_*{sharedLibraryExtension}*",
-		"lib/libboost_test_exec_monitor.a",
+		"include/boost{boostVersionSuffix}",
+		"lib/{libraryPrefix}boost_*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}boost_*.lib",
+		"lib/{libraryPrefix}boost_test_exec_monitor{staticLibraryExtension}",
 
 	],
 
+	"platform:windows" : {
+
+		"dependencies" : [ "Python", "Zlib" ],
+	
+		"variables" : {
+
+			"boostVersionSuffix" : "-1_68",
+
+		},
+
+		"environment" : {
+
+			# Boost needs help finding Python
+			"PATH" : "%PATH%;{buildDir}\\bin",
+			"PYTHONPATH" : "{buildDir};{buildDir}\\bin;{buildDir}\\lib64;{buildDir}\\lib"
+
+		},
+
+		"commands" : [
+
+			"bootstrap.bat --prefix={buildDir} --with-python=\"{buildDir}\" --with-python-root=\"{buildDir}\" --without-libraries=log",
+			"b2 -d+2 --prefix={buildDir} --toolset=msvc architecture=x86 address-model=64 --build-type=complete variant=release link=shared threading=multi cxxflags=\"/std:c++{c++Standard}\" -s ZLIB_SOURCE=%ROOT_DIR%\\Zlib\\working\\zlib-1.2.11 -s ZLIB_INCLUDE={buildDir}\\include -s ZLIB_LIBPATH={buildDir}\\lib -s ZLIB_BINARY=zlib install"
+
+		],
+
+	},
 }
